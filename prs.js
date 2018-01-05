@@ -4,9 +4,11 @@ var cheerio = require('cheerio');
 
 var totalNumber = 0;
 
-var urlJson = {'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html'}
+var urlJsonTest = {'William Solomon': 'http://www.tfrrs.org/athletes/5124533.html'}
 
-var urlJson2 = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
+var learningExperiences = ["DNF", "ND", "FOUL"]
+
+var urlJson = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
 				  'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792.html',
 				  'Anthony Brooks': '',
 				  'Braeden Collins': 'http://www.tfrrs.org/athletes/6423527.html',
@@ -49,7 +51,7 @@ var urlJson2 = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html
 				  'Tyler Whorton': 'http://www.tfrrs.org/athletes/6423528.html' 
 				}
 
-var names2 = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Collins", 
+var names = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Collins", 
 				 "Sam Costa", "Gabriel Darosa", "Patrick Fleming", "Jag Gangemi", "Alex Grady", 
 				 "Bennett Hillier", "Ben Jean", "Lionel Jones", "Andrew Kent", "Mark Kimura-Smith", 
 				 "Andres Littig", "John Lyons", "Hunter Mallard", "Andrew Matson", "Eamon Mccoy", 
@@ -59,7 +61,7 @@ var names2 = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden C
 				 "Brandon Stone", "Corson Teasley", "Ryan Thomas", "Andreas Ward", "Dwayne Watkins", 
 				 "Wesley Watkins", "Tyler Whorton"];
 
-var names = ["Avery Bartlett", "Andres Littig"];
+var namesTest = ["Avery Bartlett", "Andres Littig"];
 
 var urlObject = {}
 var indoorPRs = {}
@@ -123,7 +125,7 @@ function timeFromMillis(ms) {
     return new Date(ms).toISOString().slice(11, -1);
 }
 
-
+// code for old TFRRS
 async function compilePRs(url) {
 	return new Promise(resolve => {
 		request(url, function (error, response, body) {
@@ -156,12 +158,34 @@ async function compilePRs(url) {
 	});	
 }
 
+//code for new TFRRS
 async function compilePRsNew(url) {
 	return new Promise(resolve => {
 		request(url, function (error, response, body) {
 			$ = cheerio.load(body);
 			$('#event-history').find('table').each(function(index, item) {
-				console.log($(this).find('thead').text());
+				var rawEvent = $(this).find('thead > tr > th').text().trim();
+				var eventName = rawEvent.split('(')[0].trim().replace(" Meters", "m").replace("k", "k (XC)");
+				$(this).find('tbody > tr').each(function(index, item) {
+					var time = $(this).find('td').first().text().trim();
+					if(!learningExperiences.includes(time)) { //oops
+						if(time.indexOf('m') > -1) {
+							time = time.split('m')[0]+'m'; //gross
+						} else if(time.indexOf('\n') > -1) {
+							time = time.split('\n')[0];
+						}
+						if(rawEvent.indexOf("Indoor") > -1) {
+							if( indoorPRs[eventName] === undefined || isNewPR(indoorPRs[eventName], time) ) {
+								indoorPRs[eventName] = time;
+							}
+						} else {
+							if( outdoorPRs[eventName] === undefined || isNewPR(outdoorPRs[eventName], time) ) {
+								outdoorPRs[eventName] = time;
+							}
+						}
+					}
+					
+				});
 			});
 			resolve("done");
 		});
@@ -170,14 +194,13 @@ async function compilePRsNew(url) {
 
 function isNewPR(oldMark, newMark) {
 	var out = false;
-	if((""+oldMark).indexOf("m") > -1 && (oldMark == -1 || newMark > oldMark || newMark.length > oldMark.length)) {
+	if((""+oldMark).indexOf("m") > -1 && (newMark > oldMark || newMark.length > oldMark.length)) {
 		//jump or throw
 		out = true;
-	} else if(oldMark == -1 || (newMark < oldMark && newMark.length == oldMark.length)) {
+	} else if((newMark < oldMark && newMark.length == oldMark.length)) {
 		//time
 		out = true;
 	}
-	//console.log(oldMark+" > "+newMark+": "+out)
 	return out
 }
 
@@ -203,10 +226,12 @@ async function getAllPRs() {
 async function getAllPRsAsJSON() {
 	var parent = {}
 	names = Object.keys(urlJson);
+	var numNames = 0;
 	for(var i = 0; i < names.length; i++) {
 		var url = urlJson[names[i]];
 		if(url.length > 5) {
-			await compilePRs(url);
+			await compilePRsNew(url);
+			numNames++;
 			var prs = {}
 			prs['INDOOR'] = indoorPRs
 			prs['OUTDOOR'] = outdoorPRs
@@ -214,7 +239,7 @@ async function getAllPRsAsJSON() {
 			indoorPRs = {}
 			outdoorPRs = {}
 		}
-		
+		console.log(numNames+"/"+names.length+" processed")
 	}
 	console.log(parent);
 }
