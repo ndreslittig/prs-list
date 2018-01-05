@@ -1,0 +1,482 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install', 'node' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+4 verbose config Skipping project config: /Users/andres/.npmrc. (matches userconfig)
+5 silly loadCurrentTree Starting
+6 silly install loadCurrentTree
+7 silly install readLocalPackageData
+8 silly fetchPackageMetaData node
+9 silly fetchNamedPackageData node
+10 silly mapToRegistry name node
+11 silly mapToRegistry using default registry
+12 silly mapToRegistry registry https://registry.npmjs.org/
+13 silly mapToRegistry data Result {
+13 silly mapToRegistry   raw: 'node',
+13 silly mapToRegistry   scope: null,
+13 silly mapToRegistry   escapedName: 'node',
+13 silly mapToRegistry   name: 'node',
+13 silly mapToRegistry   rawSpec: '',
+13 silly mapToRegistry   spec: 'latest',
+13 silly mapToRegistry   type: 'tag' }
+14 silly mapToRegistry uri https://registry.npmjs.org/node
+15 verbose get https://registry.npmjs.org/node not expired, no request
+16 silly install normalizeTree
+17 silly loadCurrentTree Finishing
+18 silly loadIdealTree Starting
+19 silly install loadIdealTree
+20 silly cloneCurrentTree Starting
+21 silly install cloneCurrentTreeToIdealTree
+22 silly cloneCurrentTree Finishing
+23 silly loadShrinkwrap Starting
+24 silly install loadShrinkwrap
+25 silly loadShrinkwrap Finishing
+26 silly loadAllDepsIntoIdealTree Starting
+27 silly install loadAllDepsIntoIdealTree
+28 silly resolveWithNewModule node@9.2.0 checking installable status
+29 silly cache add args [ 'node', null ]
+30 verbose cache add spec node
+31 silly cache add parsed spec Result {
+31 silly cache add   raw: 'node',
+31 silly cache add   scope: null,
+31 silly cache add   escapedName: 'node',
+31 silly cache add   name: 'node',
+31 silly cache add   rawSpec: '',
+31 silly cache add   spec: 'latest',
+31 silly cache add   type: 'tag' }
+32 silly addNamed node@latest
+33 verbose addNamed "latest" is being treated as a dist-tag for node
+34 info addNameTag [ 'node', 'latest' ]
+35 silly mapToRegistry name node
+36 silly mapToRegistry using default registry
+37 silly mapToRegistry registry https://registry.npmjs.org/
+38 silly mapToRegistry data Result {
+38 silly mapToRegistry   raw: 'node',
+38 silly mapToRegistry   scope: null,
+38 silly mapToRegistry   escapedName: 'node',
+38 silly mapToRegistry   name: 'node',
+38 silly mapToRegistry   rawSpec: '',
+38 silly mapToRegistry   spec: 'latest',
+38 silly mapToRegistry   type: 'tag' }
+39 silly mapToRegistry uri https://registry.npmjs.org/node
+40 verbose addNameTag registry:https://registry.npmjs.org/node not in flight; fetching
+41 verbose get https://registry.npmjs.org/node not expired, no request
+42 silly addNameTag next cb for node with tag latest
+43 silly addNamed node@9.2.0
+44 verbose addNamed "9.2.0" is a plain semver version for node
+45 silly cache afterAdd node@9.2.0
+46 verbose afterAdd /Users/andres/.npm/node/9.2.0/package/package.json not in flight; writing
+47 verbose correctMkdir /Users/andres/.npm correctMkdir not in flight; initializing
+48 verbose afterAdd /Users/andres/.npm/node/9.2.0/package/package.json written
+49 silly fetchNamedPackageData node-bin-setup
+50 silly mapToRegistry name node-bin-setup
+51 silly mapToRegistry using default registry
+52 silly mapToRegistry registry https://registry.npmjs.org/
+53 silly mapToRegistry data Result {
+53 silly mapToRegistry   raw: 'node-bin-setup',
+53 silly mapToRegistry   scope: null,
+53 silly mapToRegistry   escapedName: 'node-bin-setup',
+53 silly mapToRegistry   name: 'node-bin-setup',
+53 silly mapToRegistry   rawSpec: '',
+53 silly mapToRegistry   spec: 'latest',
+53 silly mapToRegistry   type: 'tag' }
+54 silly mapToRegistry uri https://registry.npmjs.org/node-bin-setup
+55 verbose get https://registry.npmjs.org/node-bin-setup not expired, no request
+56 silly resolveWithNewModule node-bin-setup@1.0.6 checking installable status
+57 silly cache add args [ 'node-bin-setup@^1.0.0', null ]
+58 verbose cache add spec node-bin-setup@^1.0.0
+59 silly cache add parsed spec Result {
+59 silly cache add   raw: 'node-bin-setup@^1.0.0',
+59 silly cache add   scope: null,
+59 silly cache add   escapedName: 'node-bin-setup',
+59 silly cache add   name: 'node-bin-setup',
+59 silly cache add   rawSpec: '^1.0.0',
+59 silly cache add   spec: '>=1.0.0 <2.0.0',
+59 silly cache add   type: 'range' }
+60 silly addNamed node-bin-setup@>=1.0.0 <2.0.0
+61 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for node-bin-setup
+62 silly addNameRange { name: 'node-bin-setup',
+62 silly addNameRange   range: '>=1.0.0 <2.0.0',
+62 silly addNameRange   hasData: false }
+63 silly mapToRegistry name node-bin-setup
+64 silly mapToRegistry using default registry
+65 silly mapToRegistry registry https://registry.npmjs.org/
+66 silly mapToRegistry data Result {
+66 silly mapToRegistry   raw: 'node-bin-setup',
+66 silly mapToRegistry   scope: null,
+66 silly mapToRegistry   escapedName: 'node-bin-setup',
+66 silly mapToRegistry   name: 'node-bin-setup',
+66 silly mapToRegistry   rawSpec: '',
+66 silly mapToRegistry   spec: 'latest',
+66 silly mapToRegistry   type: 'tag' }
+67 silly mapToRegistry uri https://registry.npmjs.org/node-bin-setup
+68 verbose addNameRange registry:https://registry.npmjs.org/node-bin-setup not in flight; fetching
+69 verbose get https://registry.npmjs.org/node-bin-setup not expired, no request
+70 silly addNameRange number 2 { name: 'node-bin-setup',
+70 silly addNameRange   range: '>=1.0.0 <2.0.0',
+70 silly addNameRange   hasData: true }
+71 silly addNameRange versions [ 'node-bin-setup',
+71 silly addNameRange   [ '1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4', '1.0.6' ] ]
+72 silly addNamed node-bin-setup@1.0.6
+73 verbose addNamed "1.0.6" is a plain semver version for node-bin-setup
+74 silly cache afterAdd node-bin-setup@1.0.6
+75 verbose afterAdd /Users/andres/.npm/node-bin-setup/1.0.6/package/package.json not in flight; writing
+76 verbose correctMkdir /Users/andres/.npm correctMkdir not in flight; initializing
+77 verbose afterAdd /Users/andres/.npm/node-bin-setup/1.0.6/package/package.json written
+78 silly loadAllDepsIntoIdealTree Finishing
+79 silly loadIdealTree Finishing
+80 silly currentTree andres
+80 silly currentTree ├── @types/node@8.0.53
+80 silly currentTree ├── a-star@0.2.0
+80 silly currentTree ├── ajv@4.11.8
+80 silly currentTree ├── asap@2.0.6
+80 silly currentTree ├── asn1@0.2.3
+80 silly currentTree ├── assert-plus@0.2.0
+80 silly currentTree ├── async@2.6.0
+80 silly currentTree ├── asynckit@0.4.0
+80 silly currentTree ├── aws-sign2@0.6.0
+80 silly currentTree ├── aws4@1.6.0
+80 silly currentTree ├── bcrypt-pbkdf@1.0.1
+80 silly currentTree ├── boolbase@1.0.0
+80 silly currentTree ├── boom@2.10.1
+80 silly currentTree ├── buffer-equal@1.0.0
+80 silly currentTree ├── caseless@0.12.0
+80 silly currentTree ├── cheerio@1.0.0-rc.2
+80 silly currentTree ├── co@4.6.0
+80 silly currentTree ├── combined-stream@1.0.5
+80 silly currentTree ├── core-util-is@1.0.2
+80 silly currentTree ├── cryptiles@2.0.5
+80 silly currentTree ├── css-select@1.2.0
+80 silly currentTree ├── css-what@2.1.0
+80 silly currentTree ├─┬ dashdash@1.14.1
+80 silly currentTree │ └── assert-plus@1.0.0
+80 silly currentTree ├── debug@2.6.8
+80 silly currentTree ├── delayed-stream@1.0.0
+80 silly currentTree ├── dict@1.4.0
+80 silly currentTree ├─┬ dom-serializer@0.1.0
+80 silly currentTree │ └── domelementtype@1.1.3
+80 silly currentTree ├── domelementtype@1.3.0
+80 silly currentTree ├── domhandler@2.4.1
+80 silly currentTree ├── domutils@1.5.1
+80 silly currentTree ├── ecc-jsbn@0.1.1
+80 silly currentTree ├── endian-toggle@0.0.0
+80 silly currentTree ├── entities@1.1.1
+80 silly currentTree ├── extend@3.0.1
+80 silly currentTree ├── extsprintf@1.3.0
+80 silly currentTree ├── forever-agent@0.6.1
+80 silly currentTree ├── form-data@2.1.4
+80 silly currentTree ├─┬ getpass@0.1.7
+80 silly currentTree │ └── assert-plus@1.0.0
+80 silly currentTree ├── har-schema@1.0.5
+80 silly currentTree ├── har-validator@4.2.1
+80 silly currentTree ├── hawk@3.1.3
+80 silly currentTree ├── heap@0.2.6
+80 silly currentTree ├── hoek@2.16.3
+80 silly currentTree ├── htmlparser2@3.9.2
+80 silly currentTree ├── http-signature@1.1.1
+80 silly currentTree ├── inherits@2.0.3
+80 silly currentTree ├── is-typedarray@1.0.0
+80 silly currentTree ├── isarray@1.0.0
+80 silly currentTree ├── isstream@0.1.2
+80 silly currentTree ├── jsbn@0.1.1
+80 silly currentTree ├── json-schema@0.2.3
+80 silly currentTree ├── json-stable-stringify@1.0.1
+80 silly currentTree ├── json-stringify-safe@5.0.1
+80 silly currentTree ├── jsonify@0.0.0
+80 silly currentTree ├─┬ jsprim@1.4.1
+80 silly currentTree │ └── assert-plus@1.0.0
+80 silly currentTree ├── lodash.get@4.4.2
+80 silly currentTree ├── lodash.merge@4.6.0
+80 silly currentTree ├── lodash.reduce@4.6.0
+80 silly currentTree ├── lodash@4.17.4
+80 silly currentTree ├── macaddress@0.2.8
+80 silly currentTree ├── mime-db@1.29.0
+80 silly currentTree ├── mime-types@2.1.16
+80 silly currentTree ├── minecraft-data@2.21.0
+80 silly currentTree ├── minecraft-protocol@1.4.0
+80 silly currentTree ├── mineflayer-blockfinder@0.0.7
+80 silly currentTree ├── mineflayer-navigate@0.0.10
+80 silly currentTree ├── mineflayer-scaffold@0.0.5
+80 silly currentTree ├── mineflayer@2.6.1
+80 silly currentTree ├── mojangson@0.2.3
+80 silly currentTree ├── ms@2.0.0
+80 silly currentTree ├── node-rsa@0.4.2
+80 silly currentTree ├── nth-check@1.0.1
+80 silly currentTree ├── oauth-sign@0.8.2
+80 silly currentTree ├── parse5@3.0.3
+80 silly currentTree ├── performance-now@0.2.0
+80 silly currentTree ├── phin@2.4.18
+80 silly currentTree ├── prismarine-biome@1.0.1
+80 silly currentTree ├── prismarine-block@1.0.1
+80 silly currentTree ├── prismarine-chunk@1.7.0
+80 silly currentTree ├── prismarine-entity@0.2.0
+80 silly currentTree ├── prismarine-item@1.0.2
+80 silly currentTree ├── prismarine-nbt@1.1.1
+80 silly currentTree ├── prismarine-recipe@1.0.1
+80 silly currentTree ├── prismarine-windows@1.1.0
+80 silly currentTree ├── process-nextick-args@1.0.7
+80 silly currentTree ├── promise@8.0.1
+80 silly currentTree ├── protodef-validator@1.1.7
+80 silly currentTree ├── protodef@1.5.1
+80 silly currentTree ├── punycode@1.4.1
+80 silly currentTree ├── qs@6.4.0
+80 silly currentTree ├── readable-stream@2.3.3
+80 silly currentTree ├── request@2.81.0
+80 silly currentTree ├── safe-buffer@5.1.1
+80 silly currentTree ├── Set@0.4.1
+80 silly currentTree ├── sntp@1.0.9
+80 silly currentTree ├── sprintf-js@1.1.1
+80 silly currentTree ├─┬ sshpk@1.13.1
+80 silly currentTree │ └── assert-plus@1.0.0
+80 silly currentTree ├── string_decoder@1.0.3
+80 silly currentTree ├── stringstream@0.0.5
+80 silly currentTree ├── tough-cookie@2.3.2
+80 silly currentTree ├── tunnel-agent@0.6.0
+80 silly currentTree ├── tweetnacl@0.14.5
+80 silly currentTree ├── uint4@0.1.2
+80 silly currentTree ├── util-deprecate@1.0.2
+80 silly currentTree ├── uuid-1345@0.99.6
+80 silly currentTree ├── uuid@3.1.0
+80 silly currentTree ├── vec3@0.1.3
+80 silly currentTree ├─┬ verror@1.10.0
+80 silly currentTree │ └── assert-plus@1.0.0
+80 silly currentTree └── yggdrasil@1.0.0
+81 silly idealTree andres
+81 silly idealTree ├── @types/node@8.0.53
+81 silly idealTree ├── a-star@0.2.0
+81 silly idealTree ├── ajv@4.11.8
+81 silly idealTree ├── asap@2.0.6
+81 silly idealTree ├── asn1@0.2.3
+81 silly idealTree ├── assert-plus@0.2.0
+81 silly idealTree ├── async@2.6.0
+81 silly idealTree ├── asynckit@0.4.0
+81 silly idealTree ├── aws-sign2@0.6.0
+81 silly idealTree ├── aws4@1.6.0
+81 silly idealTree ├── bcrypt-pbkdf@1.0.1
+81 silly idealTree ├── boolbase@1.0.0
+81 silly idealTree ├── boom@2.10.1
+81 silly idealTree ├── buffer-equal@1.0.0
+81 silly idealTree ├── caseless@0.12.0
+81 silly idealTree ├── cheerio@1.0.0-rc.2
+81 silly idealTree ├── co@4.6.0
+81 silly idealTree ├── combined-stream@1.0.5
+81 silly idealTree ├── core-util-is@1.0.2
+81 silly idealTree ├── cryptiles@2.0.5
+81 silly idealTree ├── css-select@1.2.0
+81 silly idealTree ├── css-what@2.1.0
+81 silly idealTree ├─┬ dashdash@1.14.1
+81 silly idealTree │ └── assert-plus@1.0.0
+81 silly idealTree ├── debug@2.6.8
+81 silly idealTree ├── delayed-stream@1.0.0
+81 silly idealTree ├── dict@1.4.0
+81 silly idealTree ├─┬ dom-serializer@0.1.0
+81 silly idealTree │ └── domelementtype@1.1.3
+81 silly idealTree ├── domelementtype@1.3.0
+81 silly idealTree ├── domhandler@2.4.1
+81 silly idealTree ├── domutils@1.5.1
+81 silly idealTree ├── ecc-jsbn@0.1.1
+81 silly idealTree ├── endian-toggle@0.0.0
+81 silly idealTree ├── entities@1.1.1
+81 silly idealTree ├── extend@3.0.1
+81 silly idealTree ├── extsprintf@1.3.0
+81 silly idealTree ├── forever-agent@0.6.1
+81 silly idealTree ├── form-data@2.1.4
+81 silly idealTree ├─┬ getpass@0.1.7
+81 silly idealTree │ └── assert-plus@1.0.0
+81 silly idealTree ├── har-schema@1.0.5
+81 silly idealTree ├── har-validator@4.2.1
+81 silly idealTree ├── hawk@3.1.3
+81 silly idealTree ├── heap@0.2.6
+81 silly idealTree ├── hoek@2.16.3
+81 silly idealTree ├── htmlparser2@3.9.2
+81 silly idealTree ├── http-signature@1.1.1
+81 silly idealTree ├── inherits@2.0.3
+81 silly idealTree ├── is-typedarray@1.0.0
+81 silly idealTree ├── isarray@1.0.0
+81 silly idealTree ├── isstream@0.1.2
+81 silly idealTree ├── jsbn@0.1.1
+81 silly idealTree ├── json-schema@0.2.3
+81 silly idealTree ├── json-stable-stringify@1.0.1
+81 silly idealTree ├── json-stringify-safe@5.0.1
+81 silly idealTree ├── jsonify@0.0.0
+81 silly idealTree ├─┬ jsprim@1.4.1
+81 silly idealTree │ └── assert-plus@1.0.0
+81 silly idealTree ├── lodash.get@4.4.2
+81 silly idealTree ├── lodash.merge@4.6.0
+81 silly idealTree ├── lodash.reduce@4.6.0
+81 silly idealTree ├── lodash@4.17.4
+81 silly idealTree ├── macaddress@0.2.8
+81 silly idealTree ├── mime-db@1.29.0
+81 silly idealTree ├── mime-types@2.1.16
+81 silly idealTree ├── minecraft-data@2.21.0
+81 silly idealTree ├── minecraft-protocol@1.4.0
+81 silly idealTree ├── mineflayer-blockfinder@0.0.7
+81 silly idealTree ├── mineflayer-navigate@0.0.10
+81 silly idealTree ├── mineflayer-scaffold@0.0.5
+81 silly idealTree ├── mineflayer@2.6.1
+81 silly idealTree ├── mojangson@0.2.3
+81 silly idealTree ├── ms@2.0.0
+81 silly idealTree ├── node-bin-setup@1.0.6
+81 silly idealTree ├── node-rsa@0.4.2
+81 silly idealTree ├── node@9.2.0
+81 silly idealTree ├── nth-check@1.0.1
+81 silly idealTree ├── oauth-sign@0.8.2
+81 silly idealTree ├── parse5@3.0.3
+81 silly idealTree ├── performance-now@0.2.0
+81 silly idealTree ├── phin@2.4.18
+81 silly idealTree ├── prismarine-biome@1.0.1
+81 silly idealTree ├── prismarine-block@1.0.1
+81 silly idealTree ├── prismarine-chunk@1.7.0
+81 silly idealTree ├── prismarine-entity@0.2.0
+81 silly idealTree ├── prismarine-item@1.0.2
+81 silly idealTree ├── prismarine-nbt@1.1.1
+81 silly idealTree ├── prismarine-recipe@1.0.1
+81 silly idealTree ├── prismarine-windows@1.1.0
+81 silly idealTree ├── process-nextick-args@1.0.7
+81 silly idealTree ├── promise@8.0.1
+81 silly idealTree ├── protodef-validator@1.1.7
+81 silly idealTree ├── protodef@1.5.1
+81 silly idealTree ├── punycode@1.4.1
+81 silly idealTree ├── qs@6.4.0
+81 silly idealTree ├── readable-stream@2.3.3
+81 silly idealTree ├── request@2.81.0
+81 silly idealTree ├── safe-buffer@5.1.1
+81 silly idealTree ├── Set@0.4.1
+81 silly idealTree ├── sntp@1.0.9
+81 silly idealTree ├── sprintf-js@1.1.1
+81 silly idealTree ├─┬ sshpk@1.13.1
+81 silly idealTree │ └── assert-plus@1.0.0
+81 silly idealTree ├── string_decoder@1.0.3
+81 silly idealTree ├── stringstream@0.0.5
+81 silly idealTree ├── tough-cookie@2.3.2
+81 silly idealTree ├── tunnel-agent@0.6.0
+81 silly idealTree ├── tweetnacl@0.14.5
+81 silly idealTree ├── uint4@0.1.2
+81 silly idealTree ├── util-deprecate@1.0.2
+81 silly idealTree ├── uuid-1345@0.99.6
+81 silly idealTree ├── uuid@3.1.0
+81 silly idealTree ├── vec3@0.1.3
+81 silly idealTree ├─┬ verror@1.10.0
+81 silly idealTree │ └── assert-plus@1.0.0
+81 silly idealTree └── yggdrasil@1.0.0
+82 silly generateActionsToTake Starting
+83 silly install generateActionsToTake
+84 silly generateActionsToTake Finishing
+85 silly diffTrees action count 2
+86 silly diffTrees add node-bin-setup@1.0.6
+87 silly diffTrees add node@9.2.0
+88 silly decomposeActions action count 16
+89 silly decomposeActions fetch node-bin-setup@1.0.6
+90 silly decomposeActions extract node-bin-setup@1.0.6
+91 silly decomposeActions test node-bin-setup@1.0.6
+92 silly decomposeActions preinstall node-bin-setup@1.0.6
+93 silly decomposeActions build node-bin-setup@1.0.6
+94 silly decomposeActions install node-bin-setup@1.0.6
+95 silly decomposeActions postinstall node-bin-setup@1.0.6
+96 silly decomposeActions finalize node-bin-setup@1.0.6
+97 silly decomposeActions fetch node@9.2.0
+98 silly decomposeActions extract node@9.2.0
+99 silly decomposeActions test node@9.2.0
+100 silly decomposeActions preinstall node@9.2.0
+101 silly decomposeActions build node@9.2.0
+102 silly decomposeActions install node@9.2.0
+103 silly decomposeActions postinstall node@9.2.0
+104 silly decomposeActions finalize node@9.2.0
+105 silly runTopLevelLifecycles Starting
+106 silly executeActions Starting
+107 silly install executeActions
+108 silly doSerial global-install 0
+109 silly doParallel fetch 2
+110 verbose correctMkdir /Users/andres/.npm/_locks correctMkdir not in flight; initializing
+111 verbose lock using /Users/andres/.npm/_locks/staging-60281592dc6b297c.lock for /Users/andres/node_modules/.staging
+112 silly doParallel extract 2
+113 silly extract node-bin-setup@1.0.6
+114 silly extract node@9.2.0
+115 verbose unbuild node_modules/.staging/node-bin-setup-f6c76e04
+116 verbose unbuild node_modules/.staging/node-4d4d0dd1
+117 silly gentlyRm /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04 is being purged from base /Users/andres
+118 verbose gentlyRm don't care about contents; nuking /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04
+119 verbose tar unpack /Users/andres/.npm/node-bin-setup/1.0.6/package.tgz
+120 verbose tar unpacking to /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04
+121 silly gentlyRm /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04 is being purged
+122 verbose gentlyRm don't care about contents; nuking /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04
+123 silly gunzTarPerm modes [ '755', '644' ]
+124 silly gentlyRm /Users/andres/node_modules/.staging/node-4d4d0dd1 is being purged from base /Users/andres
+125 verbose gentlyRm don't care about contents; nuking /Users/andres/node_modules/.staging/node-4d4d0dd1
+126 verbose tar unpack /Users/andres/.npm/node/9.2.0/package.tgz
+127 verbose tar unpacking to /Users/andres/node_modules/.staging/node-4d4d0dd1
+128 silly gentlyRm /Users/andres/node_modules/.staging/node-4d4d0dd1 is being purged
+129 verbose gentlyRm don't care about contents; nuking /Users/andres/node_modules/.staging/node-4d4d0dd1
+130 silly gunzTarPerm modes [ '755', '644' ]
+131 silly gunzTarPerm extractEntry package.json
+132 silly gunzTarPerm extractEntry package.json
+133 silly gunzTarPerm extractEntry index.js
+134 silly gunzTarPerm extractEntry installArchSpecificPackage.js
+135 silly gunzTarPerm extractEntry README.md
+136 silly gentlyRm /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04/node_modules is being purged
+137 verbose gentlyRm don't care about contents; nuking /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04/node_modules
+138 silly gentlyRm /Users/andres/node_modules/.staging/node-4d4d0dd1/node_modules is being purged
+139 verbose gentlyRm don't care about contents; nuking /Users/andres/node_modules/.staging/node-4d4d0dd1/node_modules
+140 silly doParallel preinstall 2
+141 silly preinstall node-bin-setup@1.0.6 /Users/andres/node_modules/.staging/node-bin-setup-f6c76e04
+142 info lifecycle node-bin-setup@1.0.6~preinstall: node-bin-setup@1.0.6
+143 silly preinstall node@9.2.0 /Users/andres/node_modules/.staging/node-4d4d0dd1
+144 info lifecycle node@9.2.0~preinstall: node@9.2.0
+145 silly lifecycle node-bin-setup@1.0.6~preinstall: no script for preinstall, continuing
+146 warn lifecycle node@9.2.0~preinstall: cannot run in wd %s %s (wd=%s) node@9.2.0 node installArchSpecificPackage /Users/andres/node_modules/.staging/node-4d4d0dd1
+147 silly doReverseSerial remove 0
+148 silly doSerial move 0
+149 silly doSerial finalize 2
+150 silly finalize /Users/andres/node_modules/node-bin-setup
+151 silly finalize /Users/andres/node_modules/node
+152 silly doSerial build 2
+153 silly build node-bin-setup@1.0.6
+154 info linkStuff node-bin-setup@1.0.6
+155 silly linkStuff node-bin-setup@1.0.6 has /Users/andres/node_modules as its parent node_modules
+156 verbose linkBins node-bin-setup@1.0.6
+157 verbose linkMans node-bin-setup@1.0.6
+158 silly build node@9.2.0
+159 info linkStuff node@9.2.0
+160 silly linkStuff node@9.2.0 has /Users/andres/node_modules as its parent node_modules
+161 verbose linkBins node@9.2.0
+162 verbose link bins [ { node: 'bin/node' },
+162 verbose link bins   '/Users/andres/node_modules/.bin',
+162 verbose link bins   false ]
+163 verbose linkMans node@9.2.0
+164 verbose unlock done using /Users/andres/.npm/_locks/staging-60281592dc6b297c.lock for /Users/andres/node_modules/.staging
+165 silly rollbackFailedOptional Starting
+166 silly rollbackFailedOptional Finishing
+167 silly runTopLevelLifecycles Finishing
+168 silly install printInstalled
+169 warn enoent ENOENT: no such file or directory, open '/Users/andres/package.json'
+170 verbose enoent ENOENT: no such file or directory, open '/Users/andres/package.json'
+170 verbose enoent This is most likely not a problem with npm itself
+170 verbose enoent and is related to npm not being able to find a file.
+171 warn andres No description
+172 verbose If you need help, you may report this error at:
+172 verbose     <https://github.com/npm/npm/issues>
+173 warn andres No repository field.
+174 verbose If you need help, you may report this error at:
+174 verbose     <https://github.com/npm/npm/issues>
+175 warn andres No README data
+176 verbose If you need help, you may report this error at:
+176 verbose     <https://github.com/npm/npm/issues>
+177 warn andres No license field.
+178 verbose If you need help, you may report this error at:
+178 verbose     <https://github.com/npm/npm/issues>
+179 verbose stack Error: ENOENT: no such file or directory, chmod '/Users/andres/node_modules/node/bin/node'
+179 verbose stack     at Error (native)
+180 verbose cwd /Users/andres/Desktop/PRs
+181 error Darwin 17.2.0
+182 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "node"
+183 error node v6.9.5
+184 error npm  v3.10.10
+185 error path /Users/andres/node_modules/node/bin/node
+186 error code ENOENT
+187 error errno -2
+188 error syscall chmod
+189 error enoent ENOENT: no such file or directory, chmod '/Users/andres/node_modules/node/bin/node'
+190 error enoent ENOENT: no such file or directory, chmod '/Users/andres/node_modules/node/bin/node'
+190 error enoent This is most likely not a problem with npm itself
+190 error enoent and is related to npm not being able to find a file.
+191 verbose exit [ -2, true ]
