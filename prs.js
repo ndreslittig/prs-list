@@ -4,9 +4,9 @@ var cheerio = require('cheerio');
 
 var totalNumber = 0;
 
-var urlJsonTest = {'William Solomon': 'http://www.tfrrs.org/athletes/5124533.html'}
+var urlJson = {'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html'}
 
-var urlJson = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
+var urlJson2 = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
 				  'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792.html',
 				  'Anthony Brooks': '',
 				  'Braeden Collins': 'http://www.tfrrs.org/athletes/6423527.html',
@@ -128,7 +128,6 @@ async function compilePRs(url) {
 	return new Promise(resolve => {
 		request(url, function (error, response, body) {
 			$ = cheerio.load(body);
-			$
 				$('.panel-second-title').find('.title > table > tbody').first().find('td').slice(3).each(function(index, item) {	
 					indoorPRs[$(this).text().trim()] = -1
 					outdoorPRs[$(this).text().trim()] = -1
@@ -152,6 +151,18 @@ async function compilePRs(url) {
 						}
 					});
 				});
+			resolve("done");
+		});
+	});	
+}
+
+async function compilePRsNew(url) {
+	return new Promise(resolve => {
+		request(url, function (error, response, body) {
+			$ = cheerio.load(body);
+			$('#event-history').find('table').each(function(index, item) {
+				console.log($(this).find('thead').text());
+			});
 			resolve("done");
 		});
 	});	
@@ -208,5 +219,5 @@ async function getAllPRsAsJSON() {
 	console.log(parent);
 }
 
-//getAllPRsAsJSON();
-getAllURLs();
+getAllPRsAsJSON();
+//getAllURLs();
