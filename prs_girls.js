@@ -4,10 +4,6 @@ var cheerio = require('cheerio');
 
 var totalNumber = 0;
 
-var urlJson2 = { 
-    'Marinice Bauman': 'http://www.tfrrs.org/athletes/5119098.html'
-  }
-
 var urlJson = { 'Haley Anderson': 'http://www.tfrrs.org/athletes/4981212.html',
   'Marinice Bauman': 'http://www.tfrrs.org/athletes/5119098.html',
   'Rebecca Dow': 'http://www.tfrrs.org/athletes/5459776.html',
@@ -47,6 +43,7 @@ var urlObject = {}
 var indoorPRs = {}
 var outdoorPRs = {}
 
+var learningExperiences = ["DNF", "ND", "FOUL", "NH"]
 
 async function processNames() {
 	for(var i = 0; i < names.length; i++) {
@@ -61,9 +58,9 @@ async function processNames() {
 async function findGTAthlete(firstname, lastname) {
 	var $ = null;
 	return new Promise(resolve => {
-		request("http://www.tfrrs.org/athletes?utf8=%E2%9C%93&search="+firstname+"+"+lastname, function (error, response, body) {
+		request.post({url:"https://www.tfrrs.org/site_search.html", form: {athlete: firstname+" "+lastname}} ,function (error, response, body) {
 	  		$ = cheerio.load(body);
-	  		searchResults = $('.leaderboard > tbody').find('tr').filter(function(index, item) {
+	  		searchResults = $('.table-striped > tbody').find('tr').filter(function(index, item) {
 	  			return ($(this).text().indexOf("Georgia Tech") > -1)
 	  		});
 	  		if(searchResults.html() != null) {
@@ -105,12 +102,12 @@ function timeFromMillis(ms) {
     return new Date(ms).toISOString().slice(11, -1);
 }
 
-
+// code for old TFRRS
 async function compilePRs(url) {
 	return new Promise(resolve => {
 		request(url, function (error, response, body) {
 			$ = cheerio.load(body);
-				$('.topperformances').find('.title > table > tbody').first().find('td').slice(3).each(function(index, item) {	
+				$('.panel-second-title').find('.title > table > tbody').first().find('td').slice(3).each(function(index, item) {	
 					indoorPRs[$(this).text().trim()] = -1
 					outdoorPRs[$(this).text().trim()] = -1
 				});
@@ -138,16 +135,48 @@ async function compilePRs(url) {
 	});	
 }
 
+//code for new TFRRS
+async function compilePRsNew(url) {
+	return new Promise(resolve => {
+		request(url, function (error, response, body) {
+			$ = cheerio.load(body);
+			$('#event-history').find('table').each(function(index, item) {
+				var rawEvent = $(this).find('thead > tr > th').text().trim();
+				var eventName = rawEvent.split('(')[0].trim().replace(" Meters", "m").replace("k", "k (XC)");
+				$(this).find('tbody > tr').each(function(index, item) {
+					var time = $(this).find('td').first().text().split('(')[0].trim();
+					if(!learningExperiences.includes(time)) { //oops
+						if(time.indexOf('m') > -1) {
+							time = time.split('m')[0]+'m'; //gross
+						} else if(time.indexOf('\n') > -1) {
+							time = time.split('\n')[0];
+						}
+						if(rawEvent.indexOf("Indoor") > -1) {
+							if( indoorPRs[eventName] === undefined || isNewPR(indoorPRs[eventName], time) ) {
+								indoorPRs[eventName] = time;
+							}
+						} else {
+							if( outdoorPRs[eventName] === undefined || isNewPR(outdoorPRs[eventName], time) ) {
+								outdoorPRs[eventName] = time;
+							}
+						}
+					}
+				});
+			});
+			resolve("done");
+		});
+	});	
+}
+
 function isNewPR(oldMark, newMark) {
 	var out = false;
-	if((""+oldMark).indexOf("m") > -1 && (oldMark == -1 || newMark > oldMark || newMark.length > oldMark.length)) {
+	if((""+oldMark).indexOf("m") > -1 && (newMark > oldMark || newMark.length > oldMark.length)) {
 		//jump or throw
 		out = true;
-	} else if(oldMark == -1 || (newMark < oldMark && newMark.length == oldMark.length)) {
+	} else if((newMark < oldMark && newMark.length == oldMark.length)) {
 		//time
 		out = true;
 	}
-	//console.log(oldMark+" > "+newMark+": "+out)
 	return out
 }
 
@@ -166,17 +195,18 @@ async function getAllPRs() {
 		if(url.length > 5) {
 			await compilePRs(url);
 		}
-		
 	}
 }
 
 async function getAllPRsAsJSON() {
 	var parent = {}
 	names = Object.keys(urlJson);
+	var numNames = 0;
 	for(var i = 0; i < names.length; i++) {
 		var url = urlJson[names[i]];
 		if(url.length > 5) {
-			await compilePRs(url);
+			await compilePRsNew(url);
+			numNames++;
 			var prs = {}
 			prs['INDOOR'] = indoorPRs
 			prs['OUTDOOR'] = outdoorPRs
@@ -184,11 +214,10 @@ async function getAllPRsAsJSON() {
 			indoorPRs = {}
 			outdoorPRs = {}
 		}
-		
+		console.log(numNames+"/"+names.length+" processed")
 	}
 	console.log(parent);
 }
 
 getAllPRsAsJSON();
 //getAllURLs();
-

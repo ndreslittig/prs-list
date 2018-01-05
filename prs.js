@@ -4,10 +4,6 @@ var cheerio = require('cheerio');
 
 var totalNumber = 0;
 
-var urlJsonTest = {'William Solomon': 'http://www.tfrrs.org/athletes/5124533.html'}
-
-var learningExperiences = ["DNF", "ND", "FOUL"]
-
 var urlJson = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
 				  'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792.html',
 				  'Anthony Brooks': '',
@@ -61,12 +57,11 @@ var names = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Co
 				 "Brandon Stone", "Corson Teasley", "Ryan Thomas", "Andreas Ward", "Dwayne Watkins", 
 				 "Wesley Watkins", "Tyler Whorton"];
 
-var namesTest = ["Avery Bartlett", "Andres Littig"];
-
 var urlObject = {}
 var indoorPRs = {}
 var outdoorPRs = {}
 
+var learningExperiences = ["DNF", "ND", "FOUL", "NH"]
 
 async function processNames() {
 	for(var i = 0; i < names.length; i++) {
@@ -184,7 +179,6 @@ async function compilePRsNew(url) {
 							}
 						}
 					}
-					
 				});
 			});
 			resolve("done");
@@ -219,7 +213,6 @@ async function getAllPRs() {
 		if(url.length > 5) {
 			await compilePRs(url);
 		}
-		
 	}
 }
 
