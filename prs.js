@@ -49,7 +49,7 @@ var urlJson = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html'
 				  'Tyler Whorton': 'http://www.tfrrs.org/athletes/6423528.html' 
 				}
 
-var names = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Collins", 
+var names2 = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Collins", 
 				 "Sam Costa", "Gabriel Darosa", "Patrick Fleming", "Jag Gangemi", "Alex Grady", 
 				 "Bennett Hillier", "Ben Jean", "Lionel Jones", "Andrew Kent", "Mark Kimura-Smith", 
 				 "Andres Littig", "John Lyons", "Hunter Mallard", "Andrew Matson", "Eamon Mccoy", 
@@ -58,6 +58,8 @@ var names = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Co
 				 "Preston Smith", "Nahom Solomon", "William Solomon", "Tyson Spears", "Anthony Steets", 
 				 "Brandon Stone", "Corson Teasley", "Ryan Thomas", "Andreas Ward", "Dwayne Watkins", 
 				 "Wesley Watkins", "Tyler Whorton"];
+
+var names = ["Avery Bartlett", "Andres Littig"];
 
 var urlObject = {}
 var indoorPRs = {}
@@ -77,9 +79,9 @@ async function processNames() {
 async function findGTAthlete(firstname, lastname) {
 	var $ = null;
 	return new Promise(resolve => {
-		request("http://www.tfrrs.org/athletes?utf8=%E2%9C%93&search="+firstname+"+"+lastname, function (error, response, body) {
+		request.post({url:"https://www.tfrrs.org/site_search.html", form: {athlete: firstname+" "+lastname}} ,function (error, response, body) {
 	  		$ = cheerio.load(body);
-	  		searchResults = $('.leaderboard > tbody').find('tr').filter(function(index, item) {
+	  		searchResults = $('.table-striped > tbody').find('tr').filter(function(index, item) {
 	  			return ($(this).text().indexOf("Georgia Tech") > -1)
 	  		});
 	  		if(searchResults.html() != null) {
@@ -126,7 +128,8 @@ async function compilePRs(url) {
 	return new Promise(resolve => {
 		request(url, function (error, response, body) {
 			$ = cheerio.load(body);
-				$('.topperformances').find('.title > table > tbody').first().find('td').slice(3).each(function(index, item) {	
+			$
+				$('.panel-second-title').find('.title > table > tbody').first().find('td').slice(3).each(function(index, item) {	
 					indoorPRs[$(this).text().trim()] = -1
 					outdoorPRs[$(this).text().trim()] = -1
 				});
@@ -205,4 +208,5 @@ async function getAllPRsAsJSON() {
 	console.log(parent);
 }
 
-getAllPRsAsJSON();
+//getAllPRsAsJSON();
+getAllURLs();
