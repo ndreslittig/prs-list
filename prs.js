@@ -4,9 +4,7 @@ var cheerio = require('cheerio');
 
 var totalNumber = 0;
 
-var urlJson = { 'William Solomon': 'http://www.tfrrs.org/athletes/5124533.html'}
-
-var urlJson2 = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
+var urlJson = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
 				  'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792.html',
 				  'Anthony Brooks': '',
 				  'Braeden Collins': 'http://www.tfrrs.org/athletes/6423527.html',
@@ -190,7 +188,6 @@ async function compilePRsNew(url) {
 
 function isNewPR(oldMark, newMark) {
 	var out = false;
-	console.log("old mark: "+oldMark+", new mark: "+newMark+", newMark > oldMark: "+(newMark > oldMark))
 
 	if((newMark).indexOf("m") > -1) {
 		out = (newMark > oldMark || newMark.length > oldMark.length);

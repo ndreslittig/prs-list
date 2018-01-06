@@ -170,7 +170,6 @@ async function compilePRsNew(url) {
 
 function isNewPR(oldMark, newMark) {
 	var out = false;
-	console.log("old mark: "+oldMark+", new mark: "+newMark+", newMark > oldMark: "+(newMark > oldMark))
 
 	if((newMark).indexOf("m") > -1) {
 		out = (newMark > oldMark || newMark.length > oldMark.length);

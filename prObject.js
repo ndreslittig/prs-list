@@ -169,12 +169,12 @@ var team = { 'Avery Bartlett':
   'Preston Smith': 
    { INDOOR: 
       { '200m': '24.62',
-        'Long Jump': '5.81m',
-        'Triple Jump': '14.24m' },
+        'Long Jump': '6.64m',
+        'Triple Jump': '15.11m' },
      OUTDOOR: 
       { '200m': '23.91',
         'Long Jump': '6.46m',
-        'Triple Jump': '14.21m' } },
+        'Triple Jump': '15.23m' } },
   'Nahom Solomon': 
    { INDOOR: { Mile: '4:18.81', '3000m': '8:17.50', '5000m': '14:36.78' },
      OUTDOOR: 
@@ -192,12 +192,12 @@ var team = { 'Avery Bartlett':
   'William Solomon': 
    { INDOOR: 
       { '200m': '23.36',
-        'Long Jump': '5.85m',
-        'Triple Jump': '13.82m' },
+        'Long Jump': '7.60m',
+        'Triple Jump': '14.01m' },
      OUTDOOR: 
       { '200m': '22.34',
-        'Long Jump': '6.93m',
-        'Triple Jump': '14.76m' } },
+        'Long Jump': '7.55m',
+        'Triple Jump': '15.46m' } },
   'Tyson Spears': 
    { INDOOR: { '60m': '6.78', '200m': '21.46', 'Long Jump': '6.92m' },
      OUTDOOR: { '100m': '10.45', '200m': '21.45' } },
@@ -205,12 +205,12 @@ var team = { 'Avery Bartlett':
    { INDOOR: {},
      OUTDOOR: { '5k (XC)': '16:03.2', '8k (XC)': '26:28.6' } },
   'Ryan Thomas': 
-   { INDOOR: { 'Long Jump': '6.78m', 'Triple Jump': '14.65m' },
+   { INDOOR: { 'Long Jump': '7.13m', 'Triple Jump': '15.38m' },
      OUTDOOR: 
       { '100m': '11.14',
         '200m': '22.72',
-        'Long Jump': '6.85m',
-        'Triple Jump': '14.77m' } },
+        'Long Jump': '7.02m',
+        'Triple Jump': '15.18m' } },
   'Andreas Ward': 
    { INDOOR: { '200m': '22.69', '60 Hurdles': '8.10' },
      OUTDOOR: 
