@@ -4,7 +4,9 @@ var cheerio = require('cheerio');
 
 var totalNumber = 0;
 
-var urlJson = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
+var urlJson = { 'William Solomon': 'http://www.tfrrs.org/athletes/5124533.html'}
+
+var urlJson2 = {   'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790.html',
 				  'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792.html',
 				  'Anthony Brooks': '',
 				  'Braeden Collins': 'http://www.tfrrs.org/athletes/6423527.html',
@@ -113,7 +115,7 @@ function timeToMillis(string) {
 	} else {
 		console.log("offending mark: ")+string
 	}
-	return -69
+	return -69;
 }
 
 function timeFromMillis(ms) {
@@ -188,11 +190,11 @@ async function compilePRsNew(url) {
 
 function isNewPR(oldMark, newMark) {
 	var out = false;
-	if((""+oldMark).indexOf("m") > -1 && (newMark > oldMark || newMark.length > oldMark.length)) {
-		//jump or throw
-		out = true;
+	console.log("old mark: "+oldMark+", new mark: "+newMark+", newMark > oldMark: "+(newMark > oldMark))
+
+	if((newMark).indexOf("m") > -1) {
+		out = (newMark > oldMark || newMark.length > oldMark.length);
 	} else if((newMark < oldMark && newMark.length == oldMark.length)) {
-		//time
 		out = true;
 	}
 	return out

@@ -170,11 +170,11 @@ async function compilePRsNew(url) {
 
 function isNewPR(oldMark, newMark) {
 	var out = false;
-	if((""+oldMark).indexOf("m") > -1 && (newMark > oldMark || newMark.length > oldMark.length)) {
-		//jump or throw
-		out = true;
+	console.log("old mark: "+oldMark+", new mark: "+newMark+", newMark > oldMark: "+(newMark > oldMark))
+
+	if((newMark).indexOf("m") > -1) {
+		out = (newMark > oldMark || newMark.length > oldMark.length);
 	} else if((newMark < oldMark && newMark.length == oldMark.length)) {
-		//time
 		out = true;
 	}
 	return out
