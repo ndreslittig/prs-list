@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>GT Men's PRs</title>
+    <title>GT Women's PRs</title>
     <style type="text/css">
     a.personLink, a.personLink:visited, a.personLink:hover {
       color:black;
@@ -55,7 +55,7 @@
         people = Object.keys(team);
         for(var i = 0; i < people.length; i++) {
           var html = '<div style="margin-top:20px; margin-bottom:20px" class="col-lg-10 col-offset-2">'
-          html += '<h1><a id="'+i+'"onclick="tog(this.id)" href="#" class="personLink">'+people[i]+'</a></h1>'
+          html += '<h1><a id="'+i+'"onclick="tog(this.id); return false;" href="#" class="personLink">'+people[i]+'</a></h1>'
           var inner = team[people[i]]
           //
           html+='<div id="'+i.toString()+i.toString()+'" class="d-none">';

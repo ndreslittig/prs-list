@@ -4,40 +4,53 @@ var cheerio = require('cheerio');
 
 var totalNumber = 0;
 
-var urlJson = { 'Haley Anderson': 'http://www.tfrrs.org/athletes/4981212.html',
-  'Marinice Bauman': 'http://www.tfrrs.org/athletes/5119098.html',
-  'Rebecca Dow': 'http://www.tfrrs.org/athletes/5459776.html',
-  'Rebecca Entrekin': 'http://www.tfrrs.org/athletes/5459777.html',
-  'Kristin Fairey': 'http://www.tfrrs.org/athletes/5958344.html',
-  'Ellen Flood': 'http://www.tfrrs.org/athletes/5958345.html',
-  'Erin Gant': 'http://www.tfrrs.org/athletes/4981214.html',
-  'Hailey Gollnick': 'http://www.tfrrs.org/athletes/4981215.html',
-  'Gabrielle Gusmerotti': 'http://www.tfrrs.org/athletes/5958346.html',
-  'Rachel Thorne': 'http://www.tfrrs.org/athletes/4637170.html',
-  'Domonique Hall': 'http://www.tfrrs.org/athletes/5119117.html',
-  'Brianna Hayden': 'http://www.tfrrs.org/athletes/6079179.html',
-  'Angelica Henderson': 'http://www.tfrrs.org/athletes/5119104.html',
-  'Anna Hightower': 'http://www.tfrrs.org/athletes/5584572.html',
-  'Shannon Innis': 'http://www.tfrrs.org/athletes/5119099.html',
-  'Bria Matthews': 'http://www.tfrrs.org/athletes/5584573.html',
-  'Alexandra Melehan': 'http://www.tfrrs.org/athletes/5459773.html',
-  'Courtney Naser': 'http://www.tfrrs.org/athletes/4981216.html',
-  'Ksenia Novikova': 'http://www.tfrrs.org/athletes/5119100.html',
-  'Juanita Pardo': 'http://www.tfrrs.org/athletes/5459775.html',
-  'Hannah Petit': 'http://www.tfrrs.org/athletes/5958348.html',
-  'Brittany Powell': 'http://www.tfrrs.org/athletes/5958351.html',
-  'Mary Prouty': 'http://www.tfrrs.org/athletes/5459772.html',
-  'Amy Ruiz': 'http://www.tfrrs.org/athletes/5459774.html',
-  'Dasia Smith': 'http://www.tfrrs.org/athletes/5584574.html',
-  'Mary Claire': 'http://www.tfrrs.org/athletes/5958350.html',
-  'Charlotte Stephens': 'http://www.tfrrs.org/athletes/4981217.html',
-  'Haley Stumvoll': 'http://www.tfrrs.org/athletes/5459778.html',
-  'Lindsey Wheeler': 'http://www.tfrrs.org/athletes/5584575.html',
-  'Jeanine Williams': 'http://www.tfrrs.org/athletes/6079182.html',
-  'Denise Woode': 'http://www.tfrrs.org/athletes/6079184.html' }
+var urlJson2 = {'Jeanine Williams': 'http://www.tfrrs.org/athletes/6079182'}
+
+var urlJson = { 'Haley Anderson': 'http://www.tfrrs.org/athletes/4981212',
+  'Marinice Bauman': 'http://www.tfrrs.org/athletes/5119098',
+  'Rebecca Dow': 'http://www.tfrrs.org/athletes/5459776',
+  'Kendria Edouard': 'http://www.tfrrs.org/athletes/6423489',
+  'Kenya Collins': 'http://www.tfrrs.org/athletes/5152685',
+  'Rebecca Entrekin': 'http://www.tfrrs.org/athletes/5459777',
+  'Kristin Fairey': 'http://www.tfrrs.org/athletes/5958344',
+  'Nicole Fegans': 'http://www.tfrrs.org/athletes/6423485',
+  'Ellen Flood': 'http://www.tfrrs.org/athletes/5958345',
+  'Samantha Folio': 'http://www.tfrrs.org/athletes/6423487',
+  'Ebony Forbes': 'http://www.tfrrs.org/athletes/6529088',
+  'Liz Galarza': 'http://www.tfrrs.org/athletes/6423486',
+  'Erin Gant': 'http://www.tfrrs.org/athletes/4981214',
+  'Hailey Gollnick': 'http://www.tfrrs.org/athletes/4981215',
+  'Gabrielle Gusmerotti': 'http://www.tfrrs.org/athletes/5958346',
+  'Domonique Hall': 'https://www.tfrrs.org/athletes/5119117.html',
+  'Madeline Hammond': 'http://www.tfrrs.org/athletes/6529086',
+  'Brianna Hayden': 'http://www.tfrrs.org/athletes/6079179',
+  'Angelica Henderson': 'http://www.tfrrs.org/athletes/5119104',
+  'Anna Hightower': 'http://www.tfrrs.org/athletes/5584572',
+  'Shannon Innis': 'http://www.tfrrs.org/athletes/5119099',
+  'Bria Matthews': 'http://www.tfrrs.org/athletes/5584573',
+  'Alexandra Melehan': 'http://www.tfrrs.org/athletes/5459773',
+  'Courtney Naser': 'http://www.tfrrs.org/athletes/4981216',
+  'Kendall Nelson': 'http://www.tfrrs.org/athletes/6423490',
+  'Ksenia Novikova': 'http://www.tfrrs.org/athletes/5119100',
+  'Pharist O\'Neal': 'https://www.tfrrs.org/athletes/6529087.html',
+  'Juanita Pardo': 'http://www.tfrrs.org/athletes/5459775',
+  'Hannah Petit': 'http://www.tfrrs.org/athletes/5958348',
+  'Brittany Powell': 'http://www.tfrrs.org/athletes/5958351',
+  'Mary Prouty': 'http://www.tfrrs.org/athletes/5459772',
+  'Marie Repasy': 'http://www.tfrrs.org/athletes/6423491',
+  'Amy Ruiz': 'http://www.tfrrs.org/athletes/5459774',
+  'Dasia Smith': 'http://www.tfrrs.org/athletes/5584574',
+  'Mary Claire Solomon': 'https://www.tfrrs.org/athletes/5958350.html',
+  'Charlotte Stephens': 'http://www.tfrrs.org/athletes/4981217',
+  'Raven Stewart': 'http://www.tfrrs.org/athletes/5647987',
+  'Haley Stumvoll': 'http://www.tfrrs.org/athletes/5459778',
+  'Lindsey Wheeler': 'http://www.tfrrs.org/athletes/5584575',
+  'Jeanine Williams': 'http://www.tfrrs.org/athletes/6079182',
+  'Denise Woode': 'http://www.tfrrs.org/athletes/6079184',
+  'Nicole Zaubi': 'http://www.tfrrs.org/athletes/6423499' }
 
 
-var names = [ "Haley Anderson", "Marinice Bauman", "Rebecca Dow", "Rebecca Entrekin", "Kristin Fairey", "Ellen Flood", "Erin Gant", "Hailey Gollnick", "Gabrielle Gusmerotti", "Dominique Hall", "Brianna Hayden", "Angelica Henderson", "Anna Hightower", "Shannon Innis", "Bria Matthews", "Alexandra Melehan", "Courtney Naser", "Ksenia Novikova", "Juanita Pardo", "Hannah Petit", "Brittany Powell", "Mary Prouty", "Amy Ruiz", "Dasia Smith", "Mary Claire Solomon", "Charlotte Stephens", "Haley Stumvoll", "Lindsey Wheeler", "Jeanine Williams", "Denise Woode" ];
+var names = [ "Haley Anderson", "Marinice Bauman", "Rebecca Dow","Kendria Edouard", "Kenya Collins", "Rebecca Entrekin", "Kristin Fairey", "Nicole Fegans", "Ellen Flood", "Samantha Folio", "Ebony Forbes", "Liz Galarza", "Erin Gant", "Hailey Gollnick", "Gabrielle Gusmerotti", "Dominique Hall", "Madeline Hammond", "Brianna Hayden", "Angelica Henderson", "Anna Hightower", "Shannon Innis", "Bria Matthews", "Alexandra Melehan", "Courtney Naser", "Kendall Nelson", "Ksenia Novikova", "Pharist Oneil", "Juanita Pardo", "Hannah Petit", "Brittany Powell", "Mary Prouty", "Marie Repasy", "Amy Ruiz", "Dasia Smith", "Mary Claire Solomon", "Charlotte Stephens", "Raven Stewart", "Haley Stumvoll", "Rachel Thorne", "Lindsey Wheeler", "Jeanine Williams", "Denise Woode", "Nicole Zaubi" ];
 
 var urlObject = {}
 var indoorPRs = {}
@@ -95,7 +108,7 @@ function timeToMillis(string) {
 	} else {
 		console.log("offending mark: ")+string
 	}
-	return -69
+	return -69;
 }
 
 function timeFromMillis(ms) {
@@ -144,13 +157,14 @@ async function compilePRsNew(url) {
 				var rawEvent = $(this).find('thead > tr > th').text().trim();
 				var eventName = rawEvent.split('(')[0].trim().replace(" Meters", "m").replace("k", "k (XC)");
 				$(this).find('tbody > tr').each(function(index, item) {
-					var time = $(this).find('td').first().text().split('(')[0].trim();
-					if(!learningExperiences.includes(time)) { //oops
-						if(time.indexOf('m') > -1) {
+					var time = $(this).find('td').first().text().trim();
+					if(time.indexOf('m') > -1) {
 							time = time.split('m')[0]+'m'; //gross
-						} else if(time.indexOf('\n') > -1) {
-							time = time.split('\n')[0];
-						}
+					} 
+					if(time.indexOf('\n') > -1) {
+						time = time.split('\n')[0];
+					} 
+					if(!learningExperiences.includes(time)) { //oops
 						if(rawEvent.indexOf("Indoor") > -1) {
 							if( indoorPRs[eventName] === undefined || isNewPR(indoorPRs[eventName], time) ) {
 								indoorPRs[eventName] = time;
@@ -217,6 +231,7 @@ async function getAllPRsAsJSON() {
 	}
 	console.log(parent);
 }
+
 
 getAllPRsAsJSON();
 //getAllURLs();

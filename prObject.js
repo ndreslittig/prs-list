@@ -1,5 +1,24 @@
+var standards = {  '60m' : '6.88',
+                  '200m' : '21.76',
+                  '400m' : '48.26',
+                  '800m' : '1:51.78',
+                   Mile : '4:09.79',
+                   '3000m' : '8:15.92',
+                   '5000m' : '14:23.54',
+                   '60 Hurdles' : '8.15',
+                   'High Jump' : '2.02m',
+                   'Pole Vault' : '4.85m',
+                   'Long Jump' : '7.02m',
+                   'Triple Jump' : '14.21m',
+                   'Shot Put' : '16.16m',
+                   'Weight Throw' : '17.31m'
+                }
 var team = { 'Avery Bartlett': 
-   { INDOOR: { '800m': '1:47.32', Mile: '4:08.71', '3000m': '8:30.87' },
+   { INDOOR: 
+      { '800m': '1:47.32',
+        '1000m': '2:27.24',
+        Mile: '4:08.71',
+        '3000m': '8:24.43' },
      OUTDOOR: 
       { '800m': '1:47.74',
         '1500m': '3:46.87',
@@ -8,7 +27,11 @@ var team = { 'Avery Bartlett':
         '8k (XC)': '24:40.5',
         '8.067k (XC)': '27:11.7' } },
   'Christian Bowles': 
-   { INDOOR: { Mile: '4:11.50', '3000m': '8:10.16' },
+   { INDOOR: 
+      { '1000m': '2:41.54',
+        Mile: '4:11.50',
+        '3000m': '8:10.16',
+        ACC_3000m: '8:14.84' },
      OUTDOOR: 
       { '1500m': '3:52.08',
         '5000m': '14:27.91',
@@ -16,9 +39,12 @@ var team = { 'Avery Bartlett':
         '10k (XC)': '32:49.4',
         '8k (XC)': '24:48.5',
         '8.067k (XC)': '26:56.8' } },
-  'Braeden Collins': { INDOOR: {}, OUTDOOR: {} },
+  'Anthony Brooks': { INDOOR: { '400m': '48.90', '600m': '1:22.80' }, OUTDOOR: {} },
+  'Braeden Collins': 
+   { INDOOR: { Mile: '4:21.82', '3000m': '8:39.26', '5000m': '14:52.71' },
+     OUTDOOR: {} },
   'Sam Costa': 
-   { INDOOR: { Mile: '4:26.05', '3000m': '8:41.51', '5000m': '14:51.66' },
+   { INDOOR: { Mile: '4:17.52', '3000m': '8:38.29', '5000m': '14:45.10' },
      OUTDOOR: 
       { '1500m': '4:01.54',
         '5000m': '15:40.06',
@@ -30,7 +56,11 @@ var team = { 'Avery Bartlett':
    { INDOOR: { '800m': '1:52.10', Mile: '4:23.17' },
      OUTDOOR: { '800m': '1:51.24', '1500m': '4:17.60' } },
   'Patrick Fleming': 
-   { INDOOR: { '800m': '1:58.62', Mile: '4:12.30' },
+   { INDOOR: 
+      { '600m': '1:28.46',
+        '800m': '1:58.62',
+        Mile: '4:12.30',
+        '3000m': '8:46.95' },
      OUTDOOR: 
       { '800m': '1:53.79',
         '1500m': '3:52.98',
@@ -47,7 +77,11 @@ var team = { 'Avery Bartlett':
         '5k (XC)': '15:59.5',
         '8k (XC)': '26:25.6' } },
   'Alex Grady': 
-   { INDOOR: { Mile: '4:12.95', '3000m': '8:18.09', '5000m': '15:20.12' },
+   { INDOOR: 
+      { '600m': '1:28.46',
+        Mile: '4:12.77',
+        '3000m': '8:18.09',
+        '5000m': '15:20.12' },
      OUTDOOR: 
       { '1500m': '3:51.70',
         '5000m': '15:11.30',
@@ -64,29 +98,51 @@ var team = { 'Avery Bartlett':
    { INDOOR: { '800m': '1:54.18' },
      OUTDOOR: { '800m': '1:51.27', '1500m': '4:02.27', '5k (XC)': '16:56.0' } },
   'Ben Jean': 
-   { INDOOR: { '200m': '22.17', '400m': '47.18', '500m': '1:03.63' },
+   { INDOOR: 
+      { '200m': '22.17',
+        '400m': '47.18',
+        ACC_400m: '48.05',
+        '500m': '1:03.63',
+        '600m': '1:20.89' },
      OUTDOOR: { '400m': '47.39' } },
   'Lionel Jones': 
-   { INDOOR: { '200m': '23.47', '400m': '49.72', '500m': '1:06.46' },
+   { INDOOR: 
+      { '200m': '23.47',
+        '400m': '49.53',
+        '500m': '1:06.46',
+        '600m': '1:24.71' },
      OUTDOOR: { '400m': '48.30' } },
-  'Andrew Kent': { INDOOR: {}, OUTDOOR: { '8k (XC)': '25:06.9' } },
+  'Andrew Kent': 
+   { INDOOR: { '1000m': '2:42.49', '3000m': '8:25.68' },
+     OUTDOOR: { '8k (XC)': '25:06.9' } },
   'Andres Littig': 
-   { INDOOR: { '800m': '1:49.28', Mile: '4:17.53' },
+   { INDOOR: 
+      { '600m': '1:27.74',
+        '800m': '1:49.28',
+        ACC_800m: '1:50.29',
+        Mile: '4:17.53' },
      OUTDOOR: 
       { '800m': '1:48.20',
         '1500m': '3:54.46',
         '8k (XC)': '27:00.8',
         '8.085k (XC)': '27:57.0' } },
   'John Lyons': 
-   { INDOOR: { '800m': '1:52.32', Mile: '4:26.17' },
+   { INDOOR: { '800m': '1:52.32', '1000m': '2:28.61', Mile: '4:16.50' },
      OUTDOOR: { '800m': '1:52.75', '1500m': '3:59.62', '5k (XC)': '16:55.5' } },
+  'Hunter Mallard': { INDOOR: { 'Pole Vault': '4.80m' }, OUTDOOR: {} },
   'Andrew Matson': 
-   { INDOOR: { Mile: '4:19.00', '3000m': '8:44.98' },
+   { INDOOR: { Mile: '4:17.42', '3000m': '8:35.91' },
      OUTDOOR: 
       { '1500m': '3:55.75',
         '5000m': '15:40.01',
         '5k (XC)': '15:36.0',
         '8k (XC)': '25:21.8' } },
+  'Matt McBrien': 
+   { INDOOR: { '3000m': '8:36.49' },
+     OUTDOOR: 
+      { '5k (XC)': '15:55.1',
+        '8k (XC)': '26:12.1',
+        '8.067k (XC)': '27:09.7' } },
   'Eamon Mccoy': 
    { INDOOR: { Mile: '4:11.93', '3000m': '8:33.49' },
      OUTDOOR: 
@@ -105,7 +161,11 @@ var team = { 'Avery Bartlett':
         '8k (XC)': '26:07.1',
         '8.067k (XC)': '26:31.1' } },
   'Matt Munns': 
-   { INDOOR: { Mile: '4:15.25', '3000m': '8:21.45', '5000m': '15:02.50' },
+   { INDOOR: 
+      { '1000m': '2:46.37',
+        Mile: '4:15.25',
+        '3000m': '8:21.45',
+        '5000m': '15:02.50' },
      OUTDOOR: 
       { '1500m': '3:52.86',
         '5000m': '14:23.21',
@@ -116,14 +176,18 @@ var team = { 'Avery Bartlett':
         '8.067k (XC)': '25:25.4',
         '9.725k (XC)': '32:18.4' } },
   'Ryan Peck': 
-   { INDOOR: { '3000m': '8:44.79', '5000m': '14:57.04' },
+   { INDOOR: 
+      { '1000m': '2:46.28',
+        Mile: '4:17.59',
+        '3000m': '8:32.14',
+        '5000m': '14:57.04' },
      OUTDOOR: 
       { '5000m': '14:46.43',
         '5k (XC)': '15:26.6',
         '8k (XC)': '25:03.3',
         '8.067k (XC)': '26:07.9' } },
   'Isaac Penman': 
-   { INDOOR: { '3000m': '9:14.20' },
+   { INDOOR: { '3000m': '8:48.96' },
      OUTDOOR: 
       { '1500m': '4:07.90',
         '5k (XC)': '16:37.9',
@@ -131,10 +195,10 @@ var team = { 'Avery Bartlett':
         '2000 Steeplechase': '6:24.01',
         '3000 Steeplechase': '9:36.00' } },
   'Daniel Pietsch': 
-   { INDOOR: { '200m': '22.05', '400m': '47.76' },
-     OUTDOOR: { '100m': '11.01', '200m': '21.63', '400m': '46.92' } },
+   { INDOOR: { '400m': '47.97', ACC_400m: '47.97', '600m': '1:20.55' },
+     OUTDOOR: {} },
   'Frank Pittman': 
-   { INDOOR: {},
+   { INDOOR: { '1000m': '2:42.51', Mile: '4:12.79', '3000m': '8:33.28' },
      OUTDOOR: 
       { '800m': '1:52.92',
         '1500m': '3:48.84',
@@ -144,7 +208,7 @@ var team = { 'Avery Bartlett':
         '8k (XC)': '24:23.6',
         '8.067k (XC)': '25:54.1' } },
   'Michael Reilly': 
-   { INDOOR: { '3000m': '8:45.49' },
+   { INDOOR: { Mile: '4:26.26', '3000m': '8:45.49' },
      OUTDOOR: { '5k (XC)': '16:26.6' } },
   'Mitchell Sanders': 
    { INDOOR: { Mile: '4:13.34', '3000m': '8:23.22' },
@@ -156,7 +220,11 @@ var team = { 'Avery Bartlett':
         '8k (XC)': '24:34.3',
         '8.067k (XC)': '25:41.0' } },
   'Tanner Shaw': 
-   { INDOOR: { Mile: '4:26.57', '3000m': '8:23.78', '5000m': '14:45.40' },
+   { INDOOR: 
+      { '1000m': '2:46.31',
+        Mile: '4:26.57',
+        '3000m': '8:23.78',
+        '5000m': '14:45.40' },
      OUTDOOR: 
       { '1500m': '3:55.99',
         '5000m': '14:34.11',
@@ -165,18 +233,26 @@ var team = { 'Avery Bartlett':
         '10k (XC)': '32:12.1',
         '8k (XC)': '24:53.0',
         '8.067k (XC)': '25:51.7' } },
-  'Maurice Simpson': { INDOOR: {}, OUTDOOR: { '100m': '10.75', '200m': '21.78' } },
+  'Maurice Simpson': 
+   { INDOOR: { '60m': '7.11', 'Long Jump': '7.05m', 'ACC_Long Jump': '7.05m' },
+     OUTDOOR: { '100m': '10.75', '200m': '21.78' } },
   'Preston Smith': 
    { INDOOR: 
       { '200m': '24.62',
         'Long Jump': '6.64m',
-        'Triple Jump': '15.11m' },
+        'Triple Jump': '15.11m',
+        'ACC_Triple Jump': '14.30m' },
      OUTDOOR: 
       { '200m': '23.91',
         'Long Jump': '6.46m',
         'Triple Jump': '15.23m' } },
   'Nahom Solomon': 
-   { INDOOR: { Mile: '4:18.81', '3000m': '8:17.50', '5000m': '14:36.78' },
+   { INDOOR: 
+      { '1000m': '2:35.29',
+        Mile: '4:18.81',
+        '3000m': '8:04.71',
+        ACC_3000m: '8:04.71',
+        '5000m': '14:36.78' },
      OUTDOOR: 
       { '800m': '1:56.91',
         '1500m': '3:52.21',
@@ -193,31 +269,55 @@ var team = { 'Avery Bartlett':
    { INDOOR: 
       { '200m': '23.36',
         'Long Jump': '7.60m',
+        'ACC_Long Jump': '7.32m',
         'Triple Jump': '14.01m' },
      OUTDOOR: 
       { '200m': '22.34',
         'Long Jump': '7.55m',
         'Triple Jump': '15.46m' } },
   'Tyson Spears': 
-   { INDOOR: { '60m': '6.78', '200m': '21.46', 'Long Jump': '6.92m' },
+   { INDOOR: 
+      { '60m': '6.78',
+        '200m': '21.46',
+        '300m': '36.80',
+        'Long Jump': '6.92m' },
      OUTDOOR: { '100m': '10.45', '200m': '21.45' } },
+  'Anthony Steets': { INDOOR: { '400m': '51.28', '600m': '1:26.48' }, OUTDOOR: {} },
+  'Brandon Stone': 
+   { INDOOR: { '200m': '24.14', '60 Hurdles': '8.65' },
+     OUTDOOR: {} },
   'Corson Teasley': 
-   { INDOOR: {},
+   { INDOOR: { '3000m': '9:04.92' },
      OUTDOOR: { '5k (XC)': '16:03.2', '8k (XC)': '26:28.6' } },
   'Ryan Thomas': 
-   { INDOOR: { 'Long Jump': '7.13m', 'Triple Jump': '15.38m' },
+   { INDOOR: { '60m': '6.97', 'Long Jump': '7.13m', 'Triple Jump': '15.38m' },
      OUTDOOR: 
       { '100m': '11.14',
         '200m': '22.72',
         'Long Jump': '7.02m',
         'Triple Jump': '15.18m' } },
   'Andreas Ward': 
-   { INDOOR: { '200m': '22.69', '60 Hurdles': '8.10' },
+   { INDOOR: 
+      { '200m': '22.69',
+        '60 Hurdles': '7.95',
+        'ACC_60 Hurdles': '7.95',
+        'ACC_3000m': '8:15.91' },
      OUTDOOR: 
       { '200m': '22.27',
         '110 Hurdles': '14.31',
         '400 Hurdles': '56.10' } },
   'Dwayne Watkins': 
-   { INDOOR: { '200m': '23.26', '400m': '49.33', '500m': '1:08.43' },
+   { INDOOR: 
+      { '200m': '23.26',
+        '400m': '49.33',
+        '500m': '1:08.43',
+        '600m': '1:24.27' },
      OUTDOOR: { '400m': '49.45' } },
-  'Tyler Whorton': { INDOOR: { '800m': '1:57.33' }, OUTDOOR: {} } }
+  'Wesley Watkins': { INDOOR: { '60m': '7.10', '60 Hurdles': '8.27' }, OUTDOOR: {} },
+  'William White': { INDOOR: { '3000m': '8:55.52' }, OUTDOOR: {} },
+  'Tyler Whorton': 
+   { INDOOR: { '800m': '1:56.16', '1000m': '2:32.32' },
+     OUTDOOR: {} } }
+
+     exports.team = team;
+     exports.standards = standards;

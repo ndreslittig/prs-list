@@ -20,6 +20,10 @@
       /*background-color:#F4F4F4;*/
     }
 
+    .accEvent {
+      margin-right:5px;
+    }
+
 
 
     </style>
@@ -55,7 +59,7 @@
         people = Object.keys(team);
         for(var i = 0; i < people.length; i++) {
           var html = '<div style="margin-top:20px; margin-bottom:20px" class="col-lg-10 col-offset-2">'
-          html += '<h1><a id="'+i+'"onclick="tog(this.id)" href="#" class="personLink">'+people[i]+'</a></h1>'
+          html += '<h1><a id="'+i+'"onclick="tog(this.id); return false;" href="#" class="personLink">'+people[i]+'</a></h1>'
           var inner = team[people[i]]
           //
           html+='<div id="'+i.toString()+i.toString()+'" class="d-none">';
@@ -65,22 +69,34 @@
             html+='<table class="table">';
             html+='<thead class="thead-dark">';
             html+='<tr>';
+            var accStub = {};
             // what the fuck so much for easy to read
             var events = Object.keys(inner[Object.keys(inner)[j]]);
             for(var k = 0; k < events.length; k++) {
-              html+='<th scope="col">'+events[k]+'</th>';
+              if(events[k].indexOf("ACC") === -1) {
+                html+='<th scope="col">'+events[k]+'</th>';
+              } else {
+                accStub[events[k]] = "";
+              }
+              
             }
             html+="</tr></thead><tbody><tr>";
-            // html+='</thead>'
-            // html+='<tbody>'
-            // html+='<tr>'
+
             for(var k = 0; k < events.length; k++) {
               // this is fucking retarded i'm so sorry to anyone reading this
               var mark = inner[Object.keys(inner)[j]][events[k]] != -1 ? inner[Object.keys(inner)[j]][events[k]] : ''
-              //console.log(mark)
-              html+='<td scope="col">'+mark+'</td>';
+              if(events[k].indexOf("ACC") === -1) {
+                html+='<td scope="col">'+mark+'</td>';
+              } else {
+                accStub[events[k]] = mark
+              }
             }
             html+="</tr></tbody></table>";
+            var accEvents = Object.keys(accStub)
+            for(var k = 0; k < accEvents.length; k++) {
+              html+='<button type="submit" class="btn btn-success accEvent">'+(accEvents[k].replace("ACC_", ""))+' ('+accStub[accEvents[k]]+')</button>'
+            }
+            
             // html+='</tbody>'
             // html+='</table>'
             
