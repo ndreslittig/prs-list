@@ -1,9 +1,20 @@
 var request = require('request');
 var async = require('async');
 var cheerio = require('cheerio');
-var prs = require('./prObject');
+var prs = require('./prDataObj');
 
 var totalNumber = 0;
+
+var dudes = { '60m' : '6.88', '200m' : '21.76', '400m' : '48.26', '800m' : '1:51.78',  
+				   Mile : '4:09.79',  '3000m' : '8:15.92',  '5000m' : '14:23.54',  '60 Hurdles' : '8.15',  
+				   'High Jump' : '2.02m',  'Pole Vault' : '4.85m',  'Long Jump' : '7.02m',  'Triple Jump' : '14.21m',  
+				   'Shot Put' : '16.16m',  'Weight Throw' : '17.31m'};
+
+var dudettes = { '60m' : '7.56', '200m' : '24.37', '400m' : '55.05', '800m' : '2:09.82',  
+				   Mile : '4:50.91',  '3000m' : '9:31.98',  '5000m' : '16:47.14',  '60 Hurdles' : '8.61',  
+				   'High Jump' : '1.69m',  'Pole Vault' : '3.91m',  'Long Jump' : '5.80m',  'Triple Jump' : '12.13m',  
+				   'Shot Put' : '13.62m',  'Weight Throw' : '17.34m'};
+var standards = { male : dudes, female : dudettes}
 //generated from 'names' by below code
 var urlJson = { 'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790',
   'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792',
@@ -29,7 +40,8 @@ var urlJson = { 'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790',
   'Matt Munns': 'http://www.tfrrs.org/athletes/4981196',
   'Ryan Peck': 'http://www.tfrrs.org/athletes/5459796',
   'Isaac Penman': 'http://www.tfrrs.org/athletes/5459795',
-  'Daniel Pietsch': 'http://www.tfrrs.org/athletes/6553544',
+  'Daniel Pietsch (Emory)': 'https://www.tfrrs.org/athletes/4987910',
+  'Daniel Pietsch (GT)': 'https://www.tfrrs.org/athletes/6553544',
   'Frank Pittman': 'http://www.tfrrs.org/athletes/5958359',
   'Michael Reilly': 'http://www.tfrrs.org/athletes/5958360',
   'Mitchell Sanders': 'http://www.tfrrs.org/athletes/5459794',
@@ -103,6 +115,12 @@ var names = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Co
 				 "Brandon Stone", "Corson Teasley", "Ryan Thomas", "Andreas Ward", "Dwayne Watkins", 
 				 "Wesley Watkins", "William White", "Tyler Whorton"];
 
+//output objects
+var men = {}
+var women = {}
+var menrecent = {}
+var womenrecent = {}
+
 var urlObject = {}
 var indoorPRs = {}
 var outdoorPRs = {}
@@ -143,12 +161,11 @@ async function findGTAthlete(firstname, lastname) {
 		
 }
 
-// not used because fuck it, use string comparisons
+// not used because fuck it, use string comparisons. used for % calcs now
 function timeToMillis(string) {
-	if(string > 0) {
+	if(string && string.length > 0) {
 		var ms = 0
 		local = string
-		console.log("String: "+ string)
 		ms += parseInt(local.split('.').pop());
 		local = local.slice(0, -3)
 		var rest = local.split(':').reverse();
@@ -158,7 +175,7 @@ function timeToMillis(string) {
 		}
 		return ms;
 	} else {
-		console.log("offending mark: ")+string
+		console.log("offending mark: "+string);
 	}
 	return -69;
 }
@@ -201,8 +218,128 @@ function timeFromMillis(ms) {
 // 	});	
 // }
 
+var equivalencies = {
+	"60" : "60m",
+	"200" : "200m",
+	"400" : "400m",
+	"400" : "400m",
+	"600" : "600m",
+	"800" : "800m",
+	"1000" : "1000m",
+	"Mile" : "Mile",
+	"3000" : "3000m",
+	"5000" : "5000m",
+	"60H" : "60 Hurdles",
+	"TJ" : "Triple Jump",
+	"LJ" : "Long Jump",
+	"HJ" : "High Jump",
+	"PV" : "Pole Vault",
+	"SP" : "Shot Put",
+	"WT" : "Weight Throw"
+}
+
+var season = "INDOOR";
+var meetName = "";
+async function compileRecentPerfs(date, gender, name, url) {
+	var recentDateString = date;
+	var weeksPerformances = []
+	return new Promise(resolve => {
+		request(url, function (error, response, body) {
+			$ = cheerio.load(body);
+			meetDate = $('#meet-results').find('table').first().find('thead > tr > th > span').text().trim();
+			if(meetDate === recentDateString) {
+				 locMeetName = $('#meet-results').find('table').first().find('thead > tr > th > a').text().trim();
+				 if(meetName.indexOf(locMeetName) < 0) {
+				 	meetName+="/"+locMeetName;
+				 } 
+
+				$('#meet-results').find('table').first().find('table > tbody > tr').each(function(index, item) {
+					var thisRow = Array.apply(null, Array(7)).map(function () {});
+					thisRow[0] = name;
+					rawEvent = $(this).find('td').first().text().trim();
+					eventName = equivalencies[rawEvent];
+					mark = $(this).find('td').eq(1).text().trim();
+					if(mark.indexOf('m') > -1) {
+						mark = mark.split('m')[0]+'m'; //gross
+					} else if(mark.indexOf('\n') > -1) {
+						mark = mark.split('\n')[0];
+					}
+					thisRow[1] = eventName;
+					thisRow[2] = mark;
+					//TODO adapt to include outdoor and also women
+					thisRow[5] = gender === "male" ? prs.menObj[name]["INDOOR"][eventName] : prs.womenObj[name]["INDOOR"][eventName];
+					thisRow[3] = standards[gender][eventName];
+					if(mark.indexOf("m") > -1) {
+						// distance or throw, strip 'm' and parse to int
+						thisRow[4] = (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[3].replace("m",""))*100).toFixed(2)+"%";
+						thisRow[6] = (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[5].replace("m",""))*100).toFixed(2)+"%";
+
+					} else {
+						thisRow[4] = ((timeToMillis(thisRow[3])/timeToMillis(mark))*100).toFixed(2)+"%";
+						thisRow[6] = ((timeToMillis(thisRow[5])/timeToMillis(mark))*100).toFixed(2)+"%";
+					}
+					weeksPerformances.push(thisRow);
+				});
+				resolve(weeksPerformances);
+			} else {
+				//did not compete
+				resolve([]);
+			}
+		});
+	});	
+}
+// async function compileRecentPerfsForCSV(date, name, url) {
+// 	var recentDateString = date;
+// 	var weeksPerformances = []
+// 	return new Promise(resolve => {
+// 		request(url, function (error, response, body) {
+// 			$ = cheerio.load(body);
+// 			meetDate = $('#meet-results').find('table').first().find('thead > tr > th > span').text().trim();
+// 			if(meetDate === recentDateString) {
+// 				 locMeetName = $('#meet-results').find('table').first().find('thead > tr > th > a').text().trim();
+// 				 if(meetName.indexOf(locMeetName) < 0 && meetName.length > 0) {
+// 				 	meetName+="/"+locMeetName;
+// 				 } else {
+// 				 	meetName = locMeetName;
+// 				 }
+
+// 				$('#meet-results').find('table').first().find('table > tbody > tr').each(function(index, item) {
+// 					var thisRow = {"name" : name};
+// 					rawEvent = $(this).find('td').first().text().trim();
+// 					eventName = equivalencies[rawEvent];
+// 					mark = $(this).find('td').eq(1).text().trim();
+// 					if(mark.indexOf('m') > -1) {
+// 						mark = mark.split('m')[0]+'m'; //gross
+// 					} else if(mark.indexOf('\n') > -1) {
+// 						mark = mark.split('\n')[0];
+// 					}
+// 					thisRow["event"] = eventName;
+// 					thisRow["mark"] = mark;
+// 					//TODO adapt to include outdoor
+// 					thisRow["PR"] = prs.team[name]["INDOOR"][eventName];
+// 					thisRow["ACC Q"] = prs.standards[eventName];
+// 					if(mark.indexOf("m") > -1) {
+// 						// distance or throw, strip 'm' and parse to int
+// 						thisRow["% of ACC Q"] = (parseFloat(mark.replace("m", ""))/parseFloat(thisRow["ACC Q"].replace("m","")))+"%";
+// 						thisRow["% of PR"] = (parseFloat(mark.replace("m", ""))/parseFloat(thisRow["PR"].replace("m","")))+"%";
+
+// 					} else {
+// 						thisRow["% of ACC Q"] = ((timeToMillis(thisRow["ACC Q"])/timeToMillis(mark))*100)+"%";
+// 						thisRow["% of PR"] = ((timeToMillis(thisRow["PR"])/timeToMillis(mark))*100)+"%";
+// 					}
+// 					weeksPerformances.push(thisRow);
+// 				});
+// 				resolve(weeksPerformances);
+// 			} else {
+// 				//did not compete
+// 				resolve({"name" : "DNC"});
+// 			}
+// 		});
+// 	});	
+// }
+
 //code for new TFRRS
-async function compilePRsNew(url) {
+async function compilePRsNew(url, gender) {
 	return new Promise(resolve => {
 		request(url, function (error, response, body) {
 			$ = cheerio.load(body);
@@ -222,7 +359,7 @@ async function compilePRsNew(url) {
 							if( indoorPRs[eventName] === undefined || isNewPR(indoorPRs[eventName], time) ) {
 								indoorPRs[eventName] = time;
 							}
-							if(year === '2018' && isNewPR(prs.standards[eventName], time)) {
+							if(year === '2018' && isNewPR(standards[gender][eventName], time)) {
 								if(indoorPRs["ACC_"+eventName] === undefined || isNewPR(indoorPRs["ACC_"+eventName], time)) {
 									indoorPRs["ACC_"+eventName] = time
 								}
@@ -231,7 +368,7 @@ async function compilePRsNew(url) {
 							if( outdoorPRs[eventName] === undefined || isNewPR(outdoorPRs[eventName], time) ) {
 								outdoorPRs[eventName] = time;
 							}
-							if(year === '2018' && isNewPR(prs.standards[eventName], time)) {
+							if(year === '2018' && isNewPR(prs.standards[gender][eventName], time)) {
 								if(outdoorPRs["ACC_"+eventName] === undefined || isNewPR(outdoorPRs["ACC_"+eventName], time)) {
 									outdoorPRs["ACC_"+eventName] = time
 								}
@@ -249,7 +386,9 @@ function isNewPR(oldMark, newMark) {
 	var out = false;
 
 	if((newMark).indexOf("m") > -1) {
-		out = (newMark > oldMark || newMark.length > oldMark.length);
+		nmc = parseFloat(newMark.replace("m",""));
+		omc = parseFloat(oldMark.replace("m",""));
+		out = (nmc > omc);
 	} else if((newMark < oldMark && newMark.length == oldMark.length)) {
 		out = true;
 	}
@@ -281,7 +420,7 @@ async function getAllPRsAsJSON(gender) {
 	for(var i = 0; i < names.length; i++) {
 		var url = (gender==="male") ? urlJson[names[i]] : gurlJson[names[i]];
 		if(url.length > 5) {
-			await compilePRsNew(url);
+			await compilePRsNew(url, gender);
 			numNames++;
 			var prs = {}
 			prs['INDOOR'] = indoorPRs
@@ -292,7 +431,32 @@ async function getAllPRsAsJSON(gender) {
 		}
 		console.log(numNames+"/"+names.length+" processed")
 	}
-	console.log(parent);
+	return parent;
+}
+
+async function getRecentPerfsAsJSON(date, gender) {
+	var outputObj = { meetName : "",
+					  meetDate : date,
+					 tableData : [] }
+	names = (gender==="male") ? Object.keys(urlJson) : Object.keys(gurlJson);
+	var numNames = 0;
+	for(var i = 0; i < names.length; i++) {
+		var url = (gender==="male") ? urlJson[names[i]] : gurlJson[names[i]];
+		if(url.length > 5) {
+			try {
+			   let result = await compileRecentPerfs(date, gender, names[i], url);
+			   for(var j = 0; j < result.length; j++) {
+			   		outputObj.tableData.push(result[j]);
+			   }
+			   numNames++;
+			} catch(err) {
+			    console.log(err);
+			}	
+		}
+		console.log(numNames+"/"+names.length+" processed")
+	}
+	outputObj.meetName = meetName.slice(1);
+	return outputObj;
 }
 
 function checkForNewPRs() {
@@ -312,13 +476,64 @@ function checkForNewPRs() {
 	return groupMeOutput.slice(0,-2);
 }
 
-async function checkAndReport() {
-	await getAllPRsAsJSON("male");
-	console.log(checkForNewPRs());
+//generateRecentPerfsToFile
+async function generateRecentPerfsToFile() {
+	try {
+	   console.log("MEN");
+	   let menrecent = await getRecentPerfsAsJSON("Jan 19-20, 2018", "male");
+	   var menJsonString = "var menObj="+JSON.stringify(menrecent)+";";
+	} catch(err) {
+	    console.log(err);
+	}
+	try {
+	   console.log("WOMEN");
+	   let womenrecent = await getRecentPerfsAsJSON("Jan 19-20, 2018", "female");
+	   var womenJsonString = "var womenObj="+JSON.stringify(womenrecent)+";";
+	} catch(err) {
+	    console.log(err);
+	}
+	var fullBlob = menJsonString+"\n"+womenJsonString;
+	var fs = require('fs');
+	fs.writeFile('recentDataObj.js', fullBlob, 'utf8', function(){
+		console.log("File successfully written.")
+	});
+}
+
+async function generatePRsToFile() {
+	try {
+	   let men = await getAllPRsAsJSON("male");
+	   var menJsonString = "var menObj="+JSON.stringify(men)+";";
+	} catch(err) {
+	    console.log(err);
+	}
+	try {
+	   let women = await getAllPRsAsJSON("female");
+	   var womenJsonString = "var womenObj="+JSON.stringify(women)+";";
+	} catch(err) {
+	    console.log(err);
+	}
+	var fullBlob = menJsonString+"\n"+womenJsonString;
+	fullBlob+='exports.menObj=menObj;\nexports.womenObj=womenObj;'
+	var fs = require('fs');
+	fs.writeFile('prDataObj.js', fullBlob, 'utf8', function(){
+		console.log("File successfully written.")
+	});
+}
+
+async function recentPerfs() {
+	try {
+	   let recentPerfs = await compileRecentPerfs('Tyson Spears', 'http://www.tfrrs.org/athletes/6087515');
+	   console.log(result);
+	} catch(err) {
+	    console.log(err);
+	}
 }
 
 // generate PR json
-getAllPRsAsJSON("male");
+//getRecentPerfsAsJSON("Jan 19-20, 2018", "male");
+//generateRecentPerfsToFile();
+generatePRsToFile();
+
 
 // generate diff between saved prObject.js and current TFRRS data (determine who PRed from last week)
 //checkAndReport();

@@ -6,10 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>GT Men's PRs</title>
+    <title>GTFRRS</title>
     <style type="text/css">
+    body {
+      padding-top: 5rem;
+    }
+
+    .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+       background-color: #292b2c!important;
+       color: #fff!important;
+    }
+
+
+    a.pillnav {
+      color: #000000!important;
+    }
+
     a.personLink, a.personLink:visited, a.personLink:hover {
       color:black;
+    }
+
+    div > table.myTable {
+      margin-bottom:0px;
     }
 
     .dude {
@@ -22,51 +40,71 @@
 
     .accEvent {
       margin-right:5px;
+      margin-bottom:10px;
     }
 
 
 
     </style>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
     
   </head>
 
   <body>
-  <div class="container">
+  <div class="container" id="navDest">
 
   </div>
 
+  <!-- justify-content-center -->
+   <div class="container">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link  pillnav active" data-toggle="tab" href="#men">Men's PRs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link pillnav" data-toggle="tab" href="#women">Women's PRs</a>
+      </li>
+    </ul>
+   
+    <div class="tab-content">
+      <div id="men" class="tab-pane fade show active" role="tabpanel"></div>
+      <div id="women" class="tab-pane fade" role="tabpanel" ></div>
+    </div>
 
-    <script src="prObject.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+<!--       <div style="margin-top:20px; margin-bottom:20px" class="col-lg-10 col-offset-2">
+        <a href="https://www.tfrrs.org/lists/2050.html?gender=m&year_filter=%2F%2Fwww.tfrrs.org%2Flists%2F2050.html&limit=100&event_type=all&year=all&list_teams_filter=Georgia+Tech&athlete_name=&team_1=&team_2=&team_3=&team_4=&quick_links=%2346">Current ACC rankings by event</a>
+        </div> -->
+
+  </div>
+
+ 
+    <script src="../prDataObj.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/tether.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
       function tog(person) {
         //$('a.personLink').click(function() {
-            console.log("fired on "+person+person)
-            $('#'+person+person).toggleClass('d-none')
+            console.log("fired on "+person)
+            $('#'+person).toggleClass('d-none')
           //});
       }
-      
 
-      $(document).ready(function() {
-
-
-
-
-        people = Object.keys(team);
+      function process(dest, blob,prefix) {
+        people = Object.keys(blob);
         for(var i = 0; i < people.length; i++) {
           var html = '<div style="margin-top:20px; margin-bottom:20px" class="col-lg-10 col-offset-2">'
-          html += '<h1><a id="'+i+'"onclick="tog(this.id); return false;" href="#" class="personLink">'+people[i]+'</a></h1>'
-          var inner = team[people[i]]
+          html += '<h1><a id="'+people[i].replace(" ", "")+'"onclick="tog(\''+prefix+i.toString()+'\'); return false;" href="#" class="personLink">'+people[i]+'</a></h1>'
+          var inner = blob[people[i]]
           //
-          html+='<div id="'+i.toString()+i.toString()+'" class="d-none">';
+          html+='<div id="'+prefix+i.toString()+'" class="d-none">';
           html+='<div class="panel-body">';
           for(var j = 0; j < Object.keys(inner).length; j++) {
             html+='<h2>'+Object.keys(inner)[j]+'</h2>';
-            html+='<table class="table">';
+            html+='<table class="table myTable">';
             html+='<thead class="thead-dark">';
             html+='<tr>';
             var accStub = {};
@@ -94,7 +132,7 @@
             html+="</tr></tbody></table>";
             var accEvents = Object.keys(accStub)
             for(var k = 0; k < accEvents.length; k++) {
-              html+='<button type="submit" class="btn btn-success accEvent">'+(accEvents[k].replace("ACC_", ""))+' ('+accStub[accEvents[k]]+')</button>'
+              html+='<button type="submit" class="btn btn-warning accEvent">'+(accEvents[k].replace("ACC_", ""))+' ('+accStub[accEvents[k]]+')</button>'
             }
             
             // html+='</tbody>'
@@ -105,10 +143,17 @@
           html+='</div>'
 
           html += '</div>'
-          $('.container').append(html)
+          $(dest).append(html);
+      }
+    }
+      
 
-          
-        }
+      $(document).ready(function() {
+        $('#navDest').load("../nav.html");
+        $('li.active').removeClass('active');
+        // $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
+         process('#men' , menObj, 'm');
+         process('#women' , womenObj, 'w');
       });
     </script>
     

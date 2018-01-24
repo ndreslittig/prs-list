@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>GT Men's Performances</title>
+    <style type="text/css">
+    body {
+      padding-top: 5rem;
+    }
+
+    .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+       background-color: #292b2c!important;
+       color: #fff!important;
+    }
+
+
+    </style>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/datatables.min.css" rel="stylesheet">
+
+
+  </head>
+  <body>
+  <div class="container" id="navDest">
+
+  </div>
+
+  <div class="container-fluid">
+    <div style="margin-top:10px; margin-bottom:10px;">
+      <h1 id="meet_title" class="text-center"></h1>
+      <h5 id="meet_date" class="text-center"></h5>
+    </div>
+      <table id="example" class="display table" width="100%"></table>
+  </div>
+
+     
+    <script src="../../recentDataObj.js"></script>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/tether.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/datatables.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+      $('#navDest').load("../../nav.html");
+      $('li.active').removeClass('active');
+      $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
+      $('#meet_title').text(menObj.meetName);
+      $('#meet_date').text(menObj.meetDate);
+      $('#example').DataTable( {
+          data: menObj.tableData,
+          pageLength: 100,
+          scrollX : true,
+          fixedColumns: {
+              leftColumns: 1
+          },
+          columns: [
+              { title: "Name" },
+              { title: "Event" },
+              { title: "Mark" },
+              { title: "ACC Q" },
+              { title: "% of ACC Q" },
+              { title: "PR" },
+              { title: "% of PR" }
+          ]
+      });
+    });
+    </script>
+    
+  </body>
+</html>
