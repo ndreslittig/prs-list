@@ -4,14 +4,16 @@ Requires node.js
 
 Do 'npm install ______' on any requisite libraries
 
-'node prs.js' or 'node prs_girls' to run
+'node prs.js' to run (check bottom of prs.js to see which file generator is running).
 
-getAllUrls() method generates the (prepopulated) urlJson variable of name : url
-
-getAllPRsAsJSON() processes that list and generates a huge JSON blob of PRs
-
-Huge JSON blob is saved as a js var in prObject.js/prObject_girls.js
+getAllUrls() method generates the (prepopulated) urlJson and gurlJson variable of format name : url
 
 Respective index.html files have JS that parses that JSON into the clickable HTML table
 
 Code is horrible, almost by design. Enjoy.
+
+Known issues:
+Recent performance list start dates are currently hardcoded. Will address in the future.
+Relies on a compiling 'prDataObj.js' file. If a corrupt one exists, delete it or make the file contents blank.
+
+Split timer, located in a different repo, has its own couple issues. If you adjust the 'goal time', you need to change (even to the same value) either 'race distance' or 'distance per spit' to get the pacing information to update.

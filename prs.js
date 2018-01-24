@@ -476,7 +476,6 @@ function checkForNewPRs() {
 	return groupMeOutput.slice(0,-2);
 }
 
-//generateRecentPerfsToFile
 async function generateRecentPerfsToFile() {
 	try {
 	   console.log("MEN");
@@ -520,23 +519,15 @@ async function generatePRsToFile() {
 	});
 }
 
-async function recentPerfs() {
-	try {
-	   let recentPerfs = await compileRecentPerfs('Tyson Spears', 'http://www.tfrrs.org/athletes/6087515');
-	   console.log(result);
-	} catch(err) {
-	    console.log(err);
-	}
-}
+// async function recentPerfs() {
+// 	try {
+// 	   let recentPerfs = await compileRecentPerfs('dick' : 'butt');
+// 	   console.log(result);
+// 	} catch(err) {
+// 	    console.log(err);
+// 	}
+// }
 
-// generate PR json
-//getRecentPerfsAsJSON("Jan 19-20, 2018", "male");
-//generateRecentPerfsToFile();
 generatePRsToFile();
-
-
-// generate diff between saved prObject.js and current TFRRS data (determine who PRed from last week)
-//checkAndReport();
-
-// generate urlJson above
-//getAllURLs();
+// requires PRsToFile to have been run at least once. Uses the prDataObj.js it generates.
+// generateRecentPerfsToFile();
