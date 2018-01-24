@@ -476,17 +476,17 @@ function checkForNewPRs() {
 	return groupMeOutput.slice(0,-2);
 }
 
-async function generateRecentPerfsToFile() {
+async function generateRecentPerfsToFile(dateStr) {
 	try {
 	   console.log("MEN");
-	   let menrecent = await getRecentPerfsAsJSON("Jan 19-20, 2018", "male");
+	   let menrecent = await getRecentPerfsAsJSON(dateStr, "male");
 	   var menJsonString = "var menObj="+JSON.stringify(menrecent)+";";
 	} catch(err) {
 	    console.log(err);
 	}
 	try {
 	   console.log("WOMEN");
-	   let womenrecent = await getRecentPerfsAsJSON("Jan 19-20, 2018", "female");
+	   let womenrecent = await getRecentPerfsAsJSON(dateStr, "female");
 	   var womenJsonString = "var womenObj="+JSON.stringify(womenrecent)+";";
 	} catch(err) {
 	    console.log(err);
@@ -500,12 +500,14 @@ async function generateRecentPerfsToFile() {
 
 async function generatePRsToFile() {
 	try {
+		console.log("MEN");
 	   let men = await getAllPRsAsJSON("male");
 	   var menJsonString = "var menObj="+JSON.stringify(men)+";";
 	} catch(err) {
 	    console.log(err);
 	}
 	try {
+		console.log("WOMEN");
 	   let women = await getAllPRsAsJSON("female");
 	   var womenJsonString = "var womenObj="+JSON.stringify(women)+";";
 	} catch(err) {
@@ -527,7 +529,18 @@ async function generatePRsToFile() {
 // 	    console.log(err);
 // 	}
 // }
+if(process.argv.length < 3) {
+	console.log("Usage:\nnode prs.js pr\nnode prs.js recent 'Jan 19-20, 2018'");
+} else if(process.argv[2] === 'pr') {
+	generatePRsToFile();
+} else if(process.argv[2] === 'recent') {
+	if(process.argv.length == 4) {
+		generateRecentPerfsToFile(process.argv[3]);
+	} else {
+		console.log("Please specify date string: ")
+		console.log("Usage:\nnode prs.js pr\nnode prs.js recent 'Jan 19-20, 2018'");
+	}
+}
 
-generatePRsToFile();
 // requires PRsToFile to have been run at least once. Uses the prDataObj.js it generates.
 // generateRecentPerfsToFile();

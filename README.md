@@ -4,7 +4,11 @@ Requires node.js
 
 Do 'npm install ______' on any requisite libraries
 
-'node prs.js' to run (check bottom of prs.js to see which file generator is running).
+To run generate PR data:
+node prs.js prs
+
+To generate recent performance list (reliant on PR data):
+node prs.js recent 'Jan 19-20, 2018'
 
 getAllUrls() method generates the (prepopulated) urlJson and gurlJson variable of format name : url
 
