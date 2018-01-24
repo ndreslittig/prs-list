@@ -5,12 +5,16 @@ Requires node.js
 Do 'npm install ______' on any requisite libraries
 
 To run generate PR data:
+```javascript
 node prs.js prs
+```
 
 To generate recent performance list (reliant on PR data):
+```javascript
 node prs.js recent 'Jan 19-20, 2018'
+```
 
-getAllUrls() method generates the (prepopulated) urlJson and gurlJson variable of format name : url
+getAllUrls() method generates the (prepopulated) ```urlJson``` and ```gurlJson``` variable of format ```name : url```.
 
 Respective index.html files have JS that parses that JSON into the clickable HTML table
 
