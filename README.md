@@ -2,7 +2,7 @@
 
 Requires node.js
 
-Do 'npm install ______' on any requisite libraries
+Do ```npm install ______``` on any requisite libraries
 
 To run generate PR data:
 ```javascript
