@@ -23,5 +23,3 @@ Code is horrible, almost by design. Enjoy.
 Known issues:
 Recent performance list start dates are currently hardcoded. Will address in the future.
 Relies on a compiling 'prDataObj.js' file. If a corrupt one exists, delete it or make the file contents blank.
-
-Split timer, located in a different repo, has its own couple issues. If you adjust the 'goal time', you need to change (even to the same value) either 'race distance' or 'distance per spit' to get the pacing information to update.
