@@ -301,12 +301,12 @@ async function compileRecentPerfs(date, gender, name, url) {
 						thisRow[3] = standards[gender][eventName];
 						if(mark.indexOf("m") > -1) {
 							// distance or throw, strip 'm' and parse to int
-							thisRow[4] = (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[3].replace("m",""))*100).toFixed(2)+"%";
-							thisRow[6] = (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[5].replace("m",""))*100).toFixed(2)+"%";
+							thisRow[4] = Math.max(0, (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[3].replace("m",""))*100).toFixed(2))+"%";
+							thisRow[6] = Math.max(0, (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[5].replace("m",""))*100).toFixed(2))+"%";
 
 						} else {
-							thisRow[4] = ((timeToMillis(thisRow[3])/timeToMillis(mark))*100).toFixed(2)+"%";
-							thisRow[6] = ((timeToMillis(thisRow[5])/timeToMillis(mark))*100).toFixed(2)+"%";
+							thisRow[4] = Math.max(0,((timeToMillis(thisRow[3])/timeToMillis(mark))*100).toFixed(2))+"%";
+							thisRow[6] = Math.max(0,((timeToMillis(thisRow[5])/timeToMillis(mark))*100).toFixed(2))+"%";
 						}
 					} else {
 						thisRow[1] = eventName;
