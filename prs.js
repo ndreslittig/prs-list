@@ -6,16 +6,30 @@ var prs = require('./prDataObj');
 var totalNumber = 0;
 
 // acc standards
-var dudes = { '60m' : '6.88', '200m' : '21.76', '400m' : '48.26', '800m' : '1:51.78',  
+
+var indudes = { '60m' : '6.88', '200m' : '21.76', '400m' : '48.26', '800m' : '1:51.78',  
 				   Mile : '4:09.79',  '3000m' : '8:15.92',  '5000m' : '14:23.54',  '60 Hurdles' : '8.15',  
 				   'High Jump' : '2.02m',  'Pole Vault' : '4.85m',  'Long Jump' : '7.02m',  'Triple Jump' : '14.21m',  
 				   'Shot Put' : '16.16m',  'Weight Throw' : '17.31m'};
 
-var dudettes = { '60m' : '7.56', '200m' : '24.37', '400m' : '55.05', '800m' : '2:09.82',  
+var indudettes = { '60m' : '7.56', '200m' : '24.37', '400m' : '55.05', '800m' : '2:09.82',  
 				   Mile : '4:50.91',  '3000m' : '9:31.98',  '5000m' : '16:47.14',  '60 Hurdles' : '8.61',  
 				   'High Jump' : '1.69m',  'Pole Vault' : '3.91m',  'Long Jump' : '5.80m',  'Triple Jump' : '12.13m',  
 				   'Shot Put' : '13.62m',  'Weight Throw' : '17.34m'};
+
+var dudes = { '100m' : '10.72', '200m' : '21.41', '400m' : '47.62', '800m' : '1:50.55',  
+				   '1500m' : '3:48.46', '5000m' : '14:22.46', '10000m' : '30:25.91', '110 Hurdles' : '14.52',  '400 Hurdles' : '53.39',
+				   '3k Steeple' : '9:13.92',
+				   'High Jump' : '2.01m',  'Pole Vault' : '4.78m',  'Long Jump' : '6.99m',  'Triple Jump' : '14.25m',  
+				   'Shot Put' : '16.20m' };
+
+var dudettes = { '100m' : '11.87', '200m' : '24:15', '400m' : '54.64', '800m' : '2:08.90',  
+				   '1500m' : '4:26.76', '5000m' : '16:47.09', '10000m' : '35:44.05', '100 Hurdles' : '13.92',  '400 Hurdles' : '1:01.12',
+				   '3k Steeple' : '10:51.21',
+				   'High Jump' : '1.70m',  'Pole Vault' : '3.82m',  'Long Jump' : '5.84m',  'Triple Jump' : '12.20m',  
+				   'Shot Put' : '14.00m' };
 var standards = { male : dudes, female : dudettes }
+var instandards = { male : indudes, female : indudettes }
 //generated from 'names' by below code
 var urlJson = { 'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790',
   'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792',
@@ -81,6 +95,7 @@ var gurlJson = { 'Haley Anderson': 'http://www.tfrrs.org/athletes/4981212',
   'Madeline Hammond': 'http://www.tfrrs.org/athletes/6529086',
   'Brianna Hayden': 'http://www.tfrrs.org/athletes/6079179',
   'Angelica Henderson': 'http://www.tfrrs.org/athletes/5119104',
+  'Hana Herndon': 'https://www.tfrrs.org/athletes/6423488/Georgia_Tech/Hana_Herndon.html',
   'Anna Hightower': 'http://www.tfrrs.org/athletes/5584572',
   'Shannon Innis': 'http://www.tfrrs.org/athletes/5119099',
   'Bria Matthews': 'http://www.tfrrs.org/athletes/5584573',
@@ -177,6 +192,7 @@ function timeToMillis(string) {
 		return ms;
 	} else {
 		console.log("offending mark: "+string);
+		return "-69";
 	}
 	return -69;
 }
@@ -223,16 +239,24 @@ function timeFromMillis(ms) {
 // because fuckin lazy & don't feel like rewriting index js
 var equivalencies = {
 	"60" : "60m",
+	"100" : "100m",
 	"200" : "200m",
 	"400" : "400m",
 	"400" : "400m",
 	"600" : "600m",
 	"800" : "800m",
 	"1000" : "1000m",
+	"1500" : "1500m",
+	"2000S" : "2k Steeple",
+	"3000S" : "3k Steeple",
 	"Mile" : "Mile",
 	"3000" : "3000m",
 	"5000" : "5000m",
+	"10,000" : "10000m",
 	"60H" : "60 Hurdles",
+	"100H" : "100 Hurdles",
+	"400H" : "400 Hurdles",
+	"110H" : "110 Hurdles",
 	"TJ" : "Triple Jump",
 	"LJ" : "Long Jump",
 	"HJ" : "High Jump",
@@ -240,7 +264,9 @@ var equivalencies = {
 	"SP" : "Shot Put",
 	"WT" : "Weight Throw",
 	"DMR" : "DMR",
-	'4x400' : '4x400'
+	'4x400' : '4x400',
+	'4x800' : '4x800',
+	'4x100' : '4x100'
 }
 // 01/19 - Jan 20, 2018
 // Jan 19-20, 2018
@@ -268,13 +294,18 @@ function dateEqual(date1, date2) {
 	return ((a1[0]===a2[0])&&(a1[0]===a2[0])&&(Math.abs(a1[1]-a2[1])<3)&&(Math.abs(a1[2]-a2[2])<3));
 }
 
-var season = "INDOOR";
+var season = "OUTDOOR";
 var meetName = "";
 async function compileRecentPerfs(date, gender, name, url) {
 	var recentDateString = date;
 	var weeksPerformances = []
 	return new Promise(resolve => {
-		request(url, function (error, response, body) {
+		var options = {
+		  headers: {'user-agent': 'node.js'}
+		}
+		request(url, options, function (error, response, body) {
+			// console.log('error:', error);
+			// console.log('statusCode:', response && response.statusCode);
 			$ = cheerio.load(body);
 			meetDate = $('#meet-results').find('table').first().find('thead > tr > th > span').text().trim();
 			if(dateEqual(meetDate, recentDateString)) {
@@ -297,7 +328,7 @@ async function compileRecentPerfs(date, gender, name, url) {
 						thisRow[1] = eventName;
 						thisRow[2] = mark;
 						//TODO adapt to include outdoor and also women
-						thisRow[5] = gender === "male" ? prs.menObj[name]["INDOOR"][eventName] : prs.womenObj[name]["INDOOR"][eventName];
+						thisRow[5] = gender === "male" ? prs.menObj[name][season][eventName] : prs.womenObj[name][season][eventName];
 						thisRow[3] = standards[gender][eventName];
 						if(mark.indexOf("m") > -1) {
 							// distance or throw, strip 'm' and parse to int
@@ -327,7 +358,12 @@ async function compileRecentPerfs(date, gender, name, url) {
 //code for new TFRRS
 async function compilePRsNew(url, gender) {
 	return new Promise(resolve => {
-		request(url, function (error, response, body) {
+		var options = {
+		  headers: {'user-agent': 'node.js'}
+		}
+		request(url, options, function (error, response, body) {
+			// console.log('error:', error);
+			// console.log('statusCode:', response && response.statusCode);
 			$ = cheerio.load(body);
 			$('#event-history').find('table').each(function(index, item) {
 				var rawEvent = $(this).find('thead > tr > th').text().trim();
@@ -341,11 +377,11 @@ async function compilePRsNew(url, gender) {
 						} else if(time.indexOf('\n') > -1) {
 							time = time.split('\n')[0];
 						}
-						if(rawEvent.indexOf("Indoor") > -1) {
+						if(rawEvent.toUpperCase().indexOf("INDOOR") > -1) {
 							if( indoorPRs[eventName] === undefined || isNewPR(indoorPRs[eventName], time) ) {
 								indoorPRs[eventName] = time;
 							}
-							if(year === '2018' && isNewPR(standards[gender][eventName], time)) {
+							if(year === '2018' && isNewPR(instandards[gender][eventName], time)) {
 								if(indoorPRs["ACC_"+eventName] === undefined || isNewPR(indoorPRs["ACC_"+eventName], time)) {
 									indoorPRs["ACC_"+eventName] = time
 								}
@@ -354,7 +390,7 @@ async function compilePRsNew(url, gender) {
 							if( outdoorPRs[eventName] === undefined || isNewPR(outdoorPRs[eventName], time) ) {
 								outdoorPRs[eventName] = time;
 							}
-							if(year === '2018' && isNewPR(prs.standards[gender][eventName], time)) {
+							if(year === '2018' && isNewPR(standards[gender][eventName], time)) {
 								if(outdoorPRs["ACC_"+eventName] === undefined || isNewPR(outdoorPRs["ACC_"+eventName], time)) {
 									outdoorPRs["ACC_"+eventName] = time
 								}
@@ -370,8 +406,7 @@ async function compilePRsNew(url, gender) {
 
 function isNewPR(oldMark, newMark) {
 	var out = false;
-
-	if((newMark).indexOf("m") > -1) {
+	if((newMark).indexOf("m") > -1 && oldMark !== undefined) {
 		nmc = parseFloat(newMark.replace("m",""));
 		omc = parseFloat(oldMark.replace("m",""));
 		out = (nmc > omc);
@@ -448,11 +483,13 @@ async function getRecentPerfsAsJSON(date, gender) {
 function checkForNewPRs(gender, newObj) {
 	var groupMeOutput = "Shouts out to ";
 	var currGender = gender==='male' ? prs.menObj : prs.womenObj
+	//console.log(currGender)
 	var ns = Object.keys(currGender);
 	for(var i = 0; i < ns.length; i++) {
 		var seasons = Object.keys(currGender[ns[i]]);
 		for(var j = 0; j < seasons.length; j++) {
 			var events = Object.keys(newObj[ns[i]][seasons[j]]);
+
 			for(var k = 0; k < events.length; k++) {
 				if((isNewPR(currGender[ns[i]][seasons[j]][events[k]], newObj[ns[i]][seasons[j]][events[k]]) && events[k].indexOf('ACC') == -1) || currGender[ns[i]][seasons[j]][events[k]] === undefined) {
 					groupMeOutput+= ns[i]+" - "+events[k].replace('ACC_', '')+(events[k].indexOf('ACC') > -1 ? ' ACC Q' : ' PR')+": "+newObj[ns[i]][seasons[j]][events[k]];
