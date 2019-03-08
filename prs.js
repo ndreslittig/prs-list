@@ -5,132 +5,34 @@ var prs = require('./prDataObj');
 
 var totalNumber = 0;
 
+var mensUrl = "https://www.tfrrs.org/teams/GA_college_m_Georgia_Tech.html"
+var womensUrl = "https://www.tfrrs.org/teams/GA_college_f_Georgia_Tech.html"
+
 // acc standards
 
-var indudes = { '60m' : '6.88', '200m' : '21.76', '400m' : '48.26', '800m' : '1:51.78',  
-				   Mile : '4:09.79',  '3000m' : '8:15.92',  '5000m' : '14:23.54',  '60 Hurdles' : '8.15',  
-				   'High Jump' : '2.02m',  'Pole Vault' : '4.85m',  'Long Jump' : '7.02m',  'Triple Jump' : '14.21m',  
+var indudes = { '60m' : '6.88', '200m' : '21.76', '400m' : '48.26', '800m' : '1:51.78',
+				   Mile : '4:09.79',  '3000m' : '8:15.92',  '5000m' : '14:23.54',  '60 Hurdles' : '8.15',
+				   'High Jump' : '2.02m',  'Pole Vault' : '4.85m',  'Long Jump' : '7.02m',  'Triple Jump' : '14.21m',
 				   'Shot Put' : '16.16m',  'Weight Throw' : '17.31m'};
 
-var indudettes = { '60m' : '7.56', '200m' : '24.37', '400m' : '55.05', '800m' : '2:09.82',  
-				   Mile : '4:50.91',  '3000m' : '9:31.98',  '5000m' : '16:47.14',  '60 Hurdles' : '8.61',  
-				   'High Jump' : '1.69m',  'Pole Vault' : '3.91m',  'Long Jump' : '5.80m',  'Triple Jump' : '12.13m',  
+var indudettes = { '60m' : '7.56', '200m' : '24.37', '400m' : '55.05', '800m' : '2:09.82',
+				   Mile : '4:50.91',  '3000m' : '9:31.98',  '5000m' : '16:47.14',  '60 Hurdles' : '8.61',
+				   'High Jump' : '1.69m',  'Pole Vault' : '3.91m',  'Long Jump' : '5.80m',  'Triple Jump' : '12.13m',
 				   'Shot Put' : '13.62m',  'Weight Throw' : '17.34m'};
 
-var dudes = { '100m' : '10.72', '200m' : '21.41', '400m' : '47.62', '800m' : '1:50.55',  
+var dudes = { '100m' : '10.72', '200m' : '21.41', '400m' : '47.62', '800m' : '1:50.55',
 				   '1500m' : '3:48.46', '5000m' : '14:22.46', '10000m' : '30:25.91', '110 Hurdles' : '14.52',  '400 Hurdles' : '53.39',
 				   '3k Steeple' : '9:13.92',
-				   'High Jump' : '2.01m',  'Pole Vault' : '4.78m',  'Long Jump' : '6.99m',  'Triple Jump' : '14.25m',  
+				   'High Jump' : '2.01m',  'Pole Vault' : '4.78m',  'Long Jump' : '6.99m',  'Triple Jump' : '14.25m',
 				   'Shot Put' : '16.20m' };
 
-var dudettes = { '100m' : '11.87', '200m' : '24:15', '400m' : '54.64', '800m' : '2:08.90',  
+var dudettes = { '100m' : '11.87', '200m' : '24:15', '400m' : '54.64', '800m' : '2:08.90',
 				   '1500m' : '4:26.76', '5000m' : '16:47.09', '10000m' : '35:44.05', '100 Hurdles' : '13.92',  '400 Hurdles' : '1:01.12',
 				   '3k Steeple' : '10:51.21',
-				   'High Jump' : '1.70m',  'Pole Vault' : '3.82m',  'Long Jump' : '5.84m',  'Triple Jump' : '12.20m',  
+				   'High Jump' : '1.70m',  'Pole Vault' : '3.82m',  'Long Jump' : '5.84m',  'Triple Jump' : '12.20m',
 				   'Shot Put' : '14.00m' };
 var standards = { male : dudes, female : dudettes }
 var instandards = { male : indudes, female : indudettes }
-//generated from 'names' by below code
-var urlJson = { 'Avery Bartlett': 'http://www.tfrrs.org/athletes/5459790',
-  'Christian Bowles': 'http://www.tfrrs.org/athletes/5459792',
-  'Anthony Brooks': 'http://www.tfrrs.org/athletes/6553541',
-  'Braeden Collins': 'http://www.tfrrs.org/athletes/6423527',
-  'Sam Costa': 'http://www.tfrrs.org/athletes/5958354',
-  'Gabriel Darosa': 'http://www.tfrrs.org/athletes/4981192',
-  'Patrick Fleming': 'http://www.tfrrs.org/athletes/4509076',
-  'Jag Gangemi': 'http://www.tfrrs.org/athletes/4509077',
-  'Alex Grady': 'http://www.tfrrs.org/athletes/4509078',
-  'Bennett Hillier': 'http://www.tfrrs.org/athletes/5958355',
-  'Ben Jean': 'http://www.tfrrs.org/athletes/6087513',
-  'Lionel Jones': 'http://www.tfrrs.org/athletes/5587168',
-  'Andrew Kent': 'http://www.tfrrs.org/athletes/5958356',
-  'Mark Kimura-Smith': '',
-  'Andres Littig': 'http://www.tfrrs.org/athletes/4509083',
-  'John Lyons': 'http://www.tfrrs.org/athletes/5958357',
-  'Hunter Mallard': 'http://www.tfrrs.org/athletes/6553543',
-  'Andrew Matson': 'http://www.tfrrs.org/athletes/5958358',
-  'Matt McBrien': 'https://www.tfrrs.org/athletes/5459793',
-  'Eamon Mccoy': 'http://www.tfrrs.org/athletes/5459791',
-  'Ryan Miller': 'http://www.tfrrs.org/athletes/4981194',
-  'Matt Munns': 'http://www.tfrrs.org/athletes/4981196',
-  'Ryan Peck': 'http://www.tfrrs.org/athletes/5459796',
-  'Isaac Penman': 'http://www.tfrrs.org/athletes/5459795',
-  'Daniel Pietsch (Emory)': 'https://www.tfrrs.org/athletes/4987910',
-  'Daniel Pietsch (GT)': 'https://www.tfrrs.org/athletes/6553544',
-  'Frank Pittman': 'http://www.tfrrs.org/athletes/5958359',
-  'Michael Reilly': 'http://www.tfrrs.org/athletes/5958360',
-  'Mitchell Sanders': 'http://www.tfrrs.org/athletes/5459794',
-  'Tanner Shaw': 'http://www.tfrrs.org/athletes/4981197',
-  'Maurice Simpson': 'http://www.tfrrs.org/athletes/6087514',
-  'Preston Smith': 'http://www.tfrrs.org/athletes/5124532',
-  'Nahom Solomon': 'http://www.tfrrs.org/athletes/4981198',
-  'William Solomon': 'http://www.tfrrs.org/athletes/5124533',
-  'Tyson Spears': 'http://www.tfrrs.org/athletes/6087515',
-  'Anthony Steets': 'http://www.tfrrs.org/athletes/6553545',
-  'Brandon Stone': 'http://www.tfrrs.org/athletes/6553546',
-  'Corson Teasley': 'http://www.tfrrs.org/athletes/5958361',
-  'Ryan Thomas': 'http://www.tfrrs.org/athletes/5124534',
-  'Andreas Ward': 'http://www.tfrrs.org/athletes/5124536',
-  'Dwayne Watkins': 'http://www.tfrrs.org/athletes/6087516',
-  'Wesley Watkins': 'http://www.tfrrs.org/athletes/6553547',
-  'William White': 'https://www.tfrrs.org/athletes/6574749',
-  'Tyler Whorton': 'http://www.tfrrs.org/athletes/6423528' }
-
-var gurlJson = { 'Haley Anderson': 'http://www.tfrrs.org/athletes/4981212',
-  'Marinice Bauman': 'http://www.tfrrs.org/athletes/5119098',
-  'Rebecca Dow': 'http://www.tfrrs.org/athletes/5459776',
-  'Kendria Edouard': 'http://www.tfrrs.org/athletes/6423489',
-  'Kenya Collins': 'http://www.tfrrs.org/athletes/5152685',
-  'Rebecca Entrekin': 'http://www.tfrrs.org/athletes/5459777',
-  'Kristin Fairey': 'http://www.tfrrs.org/athletes/5958344',
-  'Nicole Fegans': 'http://www.tfrrs.org/athletes/6423485',
-  'Ellen Flood': 'http://www.tfrrs.org/athletes/5958345',
-  'Samantha Folio': 'http://www.tfrrs.org/athletes/6423487',
-  'Ebony Forbes': 'http://www.tfrrs.org/athletes/6529088',
-  'Liz Galarza': 'http://www.tfrrs.org/athletes/6423486',
-  'Erin Gant': 'http://www.tfrrs.org/athletes/4981214',
-  'Hailey Gollnick': 'http://www.tfrrs.org/athletes/4981215',
-  'Gabrielle Gusmerotti': 'http://www.tfrrs.org/athletes/5958346',
-  'Domonique Hall': 'https://www.tfrrs.org/athletes/5119117.html',
-  'Madeline Hammond': 'http://www.tfrrs.org/athletes/6529086',
-  'Brianna Hayden': 'http://www.tfrrs.org/athletes/6079179',
-  'Angelica Henderson': 'http://www.tfrrs.org/athletes/5119104',
-  'Hana Herndon': 'https://www.tfrrs.org/athletes/6423488/Georgia_Tech/Hana_Herndon.html',
-  'Anna Hightower': 'http://www.tfrrs.org/athletes/5584572',
-  'Shannon Innis': 'http://www.tfrrs.org/athletes/5119099',
-  'Bria Matthews': 'http://www.tfrrs.org/athletes/5584573',
-  'Alexandra Melehan': 'http://www.tfrrs.org/athletes/5459773',
-  'Courtney Naser': 'http://www.tfrrs.org/athletes/4981216',
-  'Kendall Nelson': 'http://www.tfrrs.org/athletes/6423490',
-  'Ksenia Novikova': 'http://www.tfrrs.org/athletes/5119100',
-  'Pharist O\'Neal': 'https://www.tfrrs.org/athletes/6529087.html',
-  'Juanita Pardo': 'http://www.tfrrs.org/athletes/5459775',
-  'Hannah Petit': 'http://www.tfrrs.org/athletes/5958348',
-  'Brittany Powell': 'http://www.tfrrs.org/athletes/5958351',
-  'Mary Prouty': 'http://www.tfrrs.org/athletes/5459772',
-  'Marie Repasy': 'http://www.tfrrs.org/athletes/6423491',
-  'Amy Ruiz': 'http://www.tfrrs.org/athletes/5459774',
-  'Corrie Smith' : 'https://www.tfrrs.org/athletes/6423498',
-  'Dasia Smith': 'http://www.tfrrs.org/athletes/5584574',
-  'Mary Claire Solomon': 'https://www.tfrrs.org/athletes/5958350.html',
-  'Charlotte Stephens': 'http://www.tfrrs.org/athletes/4981217',
-  'Raven Stewart': 'http://www.tfrrs.org/athletes/5647987',
-  'Haley Stumvoll': 'http://www.tfrrs.org/athletes/5459778',
-  'Rachel Thorne': 'https://www.tfrrs.org/athletes/4637170',
-  'Lindsey Wheeler': 'http://www.tfrrs.org/athletes/5584575',
-  'Jeanine Williams': 'http://www.tfrrs.org/athletes/6079182',
-  'Denise Woode': 'http://www.tfrrs.org/athletes/6079184',
-  'Nicole Zaubi': 'http://www.tfrrs.org/athletes/6423499' }
-
-var names = ["Avery Bartlett", "Christian Bowles", "Anthony Brooks", "Braeden Collins", 
-				 "Sam Costa", "Gabriel Darosa", "Patrick Fleming", "Jag Gangemi", "Alex Grady", 
-				 "Bennett Hillier", "Ben Jean", "Lionel Jones", "Andrew Kent", "Mark Kimura-Smith", 
-				 "Andres Littig", "John Lyons", "Hunter Mallard", "Andrew Matson", "Eamon Mccoy", 
-				 "Ryan Miller", "Matt Munns", "Ryan Peck", "Isaac Penman", "Daniel Pietsch", 
-				 "Frank Pittman", "Michael Reilly", "Mitchell Sanders", "Tanner Shaw", "Maurice Simpson", 
-				 "Preston Smith", "Nahom Solomon", "William Solomon", "Tyson Spears", "Anthony Steets", 
-				 "Brandon Stone", "Corson Teasley", "Ryan Thomas", "Andreas Ward", "Dwayne Watkins", 
-				 "Wesley Watkins", "William White", "Tyler Whorton"];
 
 //output objects
 var men = {}
@@ -144,38 +46,6 @@ var outdoorPRs = {}
 var parent = {}
 
 var learningExperiences = ["DNF", "ND", "FOUL", "NH", "NT"]
-
-async function processNames() {
-	for(var i = 0; i < names.length; i++) {
-		var namez = names[i].split(" ");
-		await findGTAthlete(namez[0], namez[1]);
-		totalNumber++;
-		console.log(totalNumber+"/"+names.length+" processed")
-	}
-}
-
-async function findGTAthlete(firstname, lastname) {
-	var $ = null;
-	return new Promise(resolve => {
-		request.post({url:"https://www.tfrrs.org/site_search.html", form: {athlete: firstname+" "+lastname}} ,function (error, response, body) {
-	  		$ = cheerio.load(body);
-	  		searchResults = $('.table-striped > tbody').find('tr').filter(function(index, item) {
-	  			return ($(this).text().indexOf("Georgia Tech") > -1)
-	  		});
-	  		if(searchResults.html() != null) {
-	  			searchResults.each(function(index, element) {
-		  			var stub = "http://www.tfrrs.org";
-		  			urlObject[firstname+" "+lastname] = stub+$(this).children().first().html().trim().match('\/athletes\/[0-9]+')[0];
-		  			resolve("Done");
-		  		});
-	  		} else {
-	  			resolve("Not found");
-	  			urlObject[firstname+" "+lastname] = "";
-	  		}
-		});
-	});
-		
-}
 
 // not used because fuck it, use string comparisons. used for % calcs now
 function timeToMillis(string) {
@@ -200,41 +70,6 @@ function timeToMillis(string) {
 function timeFromMillis(ms) {
     return new Date(ms).toISOString().slice(11, -1);
 }
-
-// code for old TFRRS
-
-// async function compilePRs(url) {
-// 	return new Promise(resolve => {
-// 		request(url, function (error, response, body) {
-// 			$ = cheerio.load(body);
-// 				$('.panel-second-title').find('.title > table > tbody').first().find('td').slice(3).each(function(index, item) {	
-// 					indoorPRs[$(this).text().trim()] = -1
-// 					outdoorPRs[$(this).text().trim()] = -1
-// 				});
-// 				tdata = $('.topperformances').find('.data > table > tbody').first().find('tr').each(function(index, item) {
-// 					var keys = Object.keys(indoorPRs);
-// 					season = $(this).find('td').eq(1).text()
-// 					console.log(season)
-// 					seasonText = $(this).find('td').text()
-// 					$(this).find('td').slice(3).each(function(index, item) {
-// 						var current = $(this).text().replace('-- --','').trim();
-// 						if(current.length > 1) {	 
-// 							if(season.indexOf('Indoor') > -1) {
-// 								if( isNewPR(indoorPRs[keys[index]], current) ) {
-// 									indoorPRs[keys[index]] = current;
-// 								}
-// 							} else {
-// 								if( isNewPR(outdoorPRs[keys[index]], current) ) {
-// 									outdoorPRs[keys[index]] = current;
-// 								}
-// 							}
-// 						}
-// 					});
-// 				});
-// 			resolve("done");
-// 		});
-// 	});	
-// }
 
 // because fuckin lazy & don't feel like rewriting index js
 var equivalencies = {
@@ -312,7 +147,7 @@ async function compileRecentPerfs(date, gender, name, url) {
 				 locMeetName = $('#meet-results').find('table').first().find('thead > tr > th > a').text().trim();
 				 if(meetName.indexOf(locMeetName) < 0) {
 				 	meetName+="/"+locMeetName;
-				 } 
+				 }
 				$('#meet-results').find('table').first().find('table > tbody > tr').each(function(index, item) {
 					var thisRow = Array.apply(null, Array(7)).map(function () {});
 					thisRow[0] = name;
@@ -352,7 +187,34 @@ async function compileRecentPerfs(date, gender, name, url) {
 				resolve([]);
 			}
 		});
-	});	
+	});
+}
+
+async function grabRoster(url) {
+	return new Promise(resolve => {
+		var out = {};
+		var options = {
+		  headers: {'user-agent': 'node.js'}
+		}
+		request(url, options, function (error, response, body) {
+			// console.log('error:', error);
+			// console.log('statusCode:', response && response.statusCode);
+			$ = cheerio.load(body);
+
+			$('h3').each(function(index, item) {
+				if($(this).text().toUpperCase().indexOf('ROSTER') > -1) {
+					$(this).parent().find('tbody > tr').each(function(item, index) {
+						//console.log($(this).find('td').text().replace('\n', '').trim())
+						var link = $(this).find('a');
+						var name = link.text().split(',').reverse().join(' ').trim()
+						out[name] = link.attr('href').replace('//www','https://www')
+
+					});
+				}
+			});
+			resolve(out)
+		});
+	});
 }
 
 //code for new TFRRS
@@ -381,16 +243,17 @@ async function compilePRsNew(url, gender) {
 							if( indoorPRs[eventName] === undefined || isNewPR(indoorPRs[eventName], time) ) {
 								indoorPRs[eventName] = time;
 							}
-							if(year === '2018' && isNewPR(instandards[gender][eventName], time)) {
+							if(year === '2019' && isNewPR(instandards[gender][eventName], time)) {
 								if(indoorPRs["ACC_"+eventName] === undefined || isNewPR(indoorPRs["ACC_"+eventName], time)) {
 									indoorPRs["ACC_"+eventName] = time
+
 								}
 							}
 						} else {
 							if( outdoorPRs[eventName] === undefined || isNewPR(outdoorPRs[eventName], time) ) {
 								outdoorPRs[eventName] = time;
 							}
-							if(year === '2018' && isNewPR(standards[gender][eventName], time)) {
+							if(year === '2019' && isNewPR(standards[gender][eventName], time)) {
 								if(outdoorPRs["ACC_"+eventName] === undefined || isNewPR(outdoorPRs["ACC_"+eventName], time)) {
 									outdoorPRs["ACC_"+eventName] = time
 								}
@@ -399,9 +262,9 @@ async function compilePRsNew(url, gender) {
 					}
 				});
 			});
-			resolve("done");
+			resolve("done"); // because this is how promises are supposed to work
 		});
-	});	
+	});
 }
 
 function isNewPR(oldMark, newMark) {
@@ -414,12 +277,6 @@ function isNewPR(oldMark, newMark) {
 		out = true;
 	}
 	return out
-}
-
-async function getAllURLs() {
-	console.log("Generating URL JSON blob");
-	await processNames();
-	console.log(urlObject)
 }
 
 async function getAllPRs() {
@@ -436,10 +293,12 @@ async function getAllPRs() {
 
 async function getAllPRsAsJSON(gender) {
 	parent = {}
-	names = (gender==="male") ? Object.keys(urlJson) : Object.keys(gurlJson);
+	//names = (gender==="male") ? Object.keys(urlJson) : Object.keys(gurlJson);
+	roster = (gender==="male") ? await grabRoster(mensUrl) : await grabRoster(womensUrl)
+	names = Object.keys(roster)
 	var numNames = 0;
 	for(var i = 0; i < names.length; i++) {
-		var url = (gender==="male") ? urlJson[names[i]] : gurlJson[names[i]];
+		var url = (gender==="male") ? roster[names[i]] : roster[names[i]];
 		if(url.length > 5) {
 			await compilePRsNew(url, gender);
 			numNames++;
@@ -472,7 +331,7 @@ async function getRecentPerfsAsJSON(date, gender) {
 			   numNames++;
 			} catch(err) {
 			    console.log(err);
-			}	
+			}
 		}
 		console.log(numNames+"/"+names.length+" processed")
 	}
@@ -529,7 +388,7 @@ async function generatePRsToFile() {
 		console.log("MEN");
 	   let men = await getAllPRsAsJSON("male");
 	   var menJsonString = "var menObj="+JSON.stringify(men)+";";
-	   console.log(checkForNewPRs('male', men));
+	   //console.log(checkForNewPRs('male', men));
 	} catch(err) {
 	    console.log(err);
 	}
@@ -537,7 +396,7 @@ async function generatePRsToFile() {
 		console.log("WOMEN");
 	   let women = await getAllPRsAsJSON("female");
 	   var womenJsonString = "var womenObj="+JSON.stringify(women)+";";
-	   console.log(checkForNewPRs('female', women));
+	   //console.log(checkForNewPRs('female', women));
 	} catch(err) {
 	    console.log(err);
 	}
@@ -550,6 +409,11 @@ async function generatePRsToFile() {
 	});
 }
 
+
+//compilePRsNew('https://www.tfrrs.org/athletes/5459790/Georgia_Tech/Avery_Bartlett.html', 'male')
+// var rossie = grabRoster(mensUrl).then(function(res) {
+// 	console.log(res)
+// });
 
 
 if(process.argv.length < 3) {
@@ -564,6 +428,11 @@ if(process.argv.length < 3) {
 		console.log("Please specify date string: ")
 		console.log("Usage:\nnode prs.js pr\nnode prs.js recent 'Jan 19-20, 2018'\nnode prs.js recent '01/19 - Jan 20, 2018'");
 	}
-} else {
+} else if(process.argv[2] === 'names') {
+	getAllURLs();
+}
+
+else {
 	console.log("Usage:\nnode prs.js pr\nnode prs.js recent 'Jan 19-20, 2018'\nnode prs.js recent '01/19 - Jan 20, 2018'");
+	compilePRsNew('https://www.tfrrs.org/athletes/5459790/Georgia_Tech/Avery_Bartlett.html', 'male')
 }
