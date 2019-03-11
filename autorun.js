@@ -17,10 +17,10 @@ async function process() {
 	  ssh = new node_ssh()
 
 	  ssh.connect({
-		      host: '192.254.190.187',
-		      port: 2222,
-		      username: 'alittig',
-		      privateKey: '/home/daddy/.ssh/id_hg_rsa',
+		      host: 'dont commit this you idiot',
+		      port: 6969,
+		      username: 'poobies',
+		      privateKey: '/asdf/asdf/.ssh/asdf_rsa',
 		      passphrase: 'dont commit passphrases you idiot, make this an env instead',
 
 		    }).then(function() {
