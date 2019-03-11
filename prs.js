@@ -45,7 +45,7 @@ var indoorPRs = {}
 var outdoorPRs = {}
 var parent = {}
 
-var learningExperiences = ["DNF", "ND", "FOUL", "NH", "NT"]
+var learningExperiences = ["DNF", "ND", "FOUL", "NH", "NT", "DQ"]
 
 // not used because fuck it, use string comparisons. used for % calcs now
 function timeToMillis(string) {
@@ -129,8 +129,10 @@ function dateEqual(date1, date2) {
 	return ((a1[0]===a2[0])&&(a1[0]===a2[0])&&(Math.abs(a1[1]-a2[1])<3)&&(Math.abs(a1[2]-a2[2])<3));
 }
 
-var season = "OUTDOOR";
+var season = "INDOOR";
 var meetName = "";
+
+
 async function compileRecentPerfs(date, gender, name, url) {
 	var recentDateString = date;
 	var weeksPerformances = []
@@ -143,7 +145,7 @@ async function compileRecentPerfs(date, gender, name, url) {
 			// console.log('statusCode:', response && response.statusCode);
 			$ = cheerio.load(body);
 			meetDate = $('#meet-results').find('table').first().find('thead > tr > th > span').text().trim();
-			if(dateEqual(meetDate, recentDateString)) {
+			if(meetDate.length > 0 && dateEqual(meetDate, recentDateString)) {
 				 locMeetName = $('#meet-results').find('table').first().find('thead > tr > th > a').text().trim();
 				 if(meetName.indexOf(locMeetName) < 0) {
 				 	meetName+="/"+locMeetName;
@@ -164,7 +166,7 @@ async function compileRecentPerfs(date, gender, name, url) {
 						thisRow[2] = mark;
 						//TODO adapt to include outdoor and also women
 						thisRow[5] = gender === "male" ? prs.menObj[name][season][eventName] : prs.womenObj[name][season][eventName];
-						thisRow[3] = standards[gender][eventName];
+						thisRow[3] = instandards[gender][eventName];
 						if(mark.indexOf("m") > -1) {
 							// distance or throw, strip 'm' and parse to int
 							thisRow[4] = Math.max(0, (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[3].replace("m",""))*100).toFixed(2))+"%";
@@ -318,10 +320,11 @@ async function getRecentPerfsAsJSON(date, gender) {
 	var outputObj = { meetName : "",
 					  meetDate : date,
 					 tableData : [] }
-	names = (gender==="male") ? Object.keys(urlJson) : Object.keys(gurlJson);
+	roster = (gender==="male") ? await grabRoster(mensUrl) : await grabRoster(womensUrl)
+ 	names = Object.keys(roster)
 	var numNames = 0;
 	for(var i = 0; i < names.length; i++) {
-		var url = (gender==="male") ? urlJson[names[i]] : gurlJson[names[i]];
+		var url = (gender==="male") ? roster[names[i]] : roster[names[i]];
 		if(url.length > 5) {
 			try {
 			   let result = await compileRecentPerfs(date, gender, names[i], url);
@@ -375,7 +378,7 @@ async function generateRecentPerfsToFile(dateStr) {
 	} catch(err) {
 	    console.log(err);
 	}
-	var fullBlob = menJsonString+"\n"+womenJsonString;
+	var fullBlob = menJsonString+"\n"+womenJsonString+'\nvar dateComputed=\''+(new Date().toLocaleString()+'\'');
 	var fs = require('fs');
 	//todo : preserve old files, potentially move to archive folder
 	fs.writeFile('recentDataObj.js', fullBlob, 'utf8', function(){
@@ -401,7 +404,7 @@ async function generatePRsToFile() {
 	    console.log(err);
 	}
 	var fullBlob = menJsonString+"\n"+womenJsonString;
-	fullBlob+='\nexports.menObj=menObj;\nexports.womenObj=womenObj;'
+	fullBlob+='var dateComputed=\''+(new Date().toLocaleString()+'\';\nexports.menObj=menObj;\nexports.womenObj=womenObj;\n')
 	var fs = require('fs');
 	//todo : preserve old file, potentiallly move to archive folder
 	fs.writeFile('prDataObj.js', fullBlob, 'utf8', function(){
@@ -414,7 +417,7 @@ async function generatePRsToFile() {
 // var rossie = grabRoster(mensUrl).then(function(res) {
 // 	console.log(res)
 // });
-
+//compileRecentPerfs('Feb 21-23, 2019', 'male', 'Avery Bartlett','https://www.tfrrs.org/athletes/5459790/Georgia_Tech/Avery_Bartlett.html' )
 
 if(process.argv.length < 3) {
 	console.log("Usage:\nnode prs.js pr\nnode prs.js recent 'Jan 19-20, 2018'");
@@ -434,5 +437,4 @@ if(process.argv.length < 3) {
 
 else {
 	console.log("Usage:\nnode prs.js pr\nnode prs.js recent 'Jan 19-20, 2018'\nnode prs.js recent '01/19 - Jan 20, 2018'");
-	compilePRsNew('https://www.tfrrs.org/athletes/5459790/Georgia_Tech/Avery_Bartlett.html', 'male')
 }

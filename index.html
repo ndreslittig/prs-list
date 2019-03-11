@@ -49,7 +49,7 @@
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-    
+
   </head>
 
   <body>
@@ -67,7 +67,7 @@
         <a class="nav-link pillnav" data-toggle="tab" href="#women">Women's PRs</a>
       </li>
     </ul>
-   
+
     <div class="tab-content">
       <div id="men" class="tab-pane fade show active" role="tabpanel"></div>
       <div id="women" class="tab-pane fade" role="tabpanel" ></div>
@@ -79,7 +79,7 @@
 
   </div>
 
- 
+
     <script src="../prDataObj.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/tether.min.js"></script>
@@ -116,7 +116,7 @@
               } else {
                 accStub[events[k]] = "";
               }
-              
+
             }
             html+="</tr></thead><tbody><tr>";
 
@@ -134,10 +134,10 @@
             for(var k = 0; k < accEvents.length; k++) {
               html+='<button type="submit" class="btn btn-warning accEvent">'+(accEvents[k].replace("ACC_", ""))+' ('+accStub[accEvents[k]]+')</button>'
             }
-            
+
             // html+='</tbody>'
             // html+='</table>'
-            
+
           }
           html+='</div>'
           html+='</div>'
@@ -146,16 +146,20 @@
           $(dest).append(html);
       }
     }
-      
+
 
       $(document).ready(function() {
-        $('#navDest').load("../nav.html");
+        $('#navDest').load("../nav.html", function() {
+          $('.lastGenerated').html('Last updated: '+dateComputed)
+        });
         $('li.active').removeClass('active');
         // $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
+
+
          process('#men' , menObj, 'm');
          process('#women' , womenObj, 'w');
       });
     </script>
-    
+
   </body>
 </html>
