@@ -9,17 +9,17 @@ To run generate PR data:
 node prs.js prs
 ```
 
-To generate recent performance list (reliant on PR data):
+To generate recent performance list:
 ```javascript
 node prs.js recent 'Jan 19-20, 2018'
 ```
 
-getAllUrls() method generates the (prepopulated) ```urlJson``` and ```gurlJson``` variable of format ```name : url```.
+autorun.js can (and does) run as a cron to ssh the output to a website (lol)
 
 Respective index.html files have JS that parses that JSON into the clickable HTML table
 
 Code is horrible, almost by design. Enjoy.
 
 Known issues:
-Recent performance list start dates are currently hardcoded. Will address in the future.
-Relies on a compiling 'prDataObj.js' file. If a corrupt one exists, delete it or make the file contents blank.
+Recent performance list start dates are sort of hardcoded. Will address in the future.
+Weird shit like outdoor/indoor ACC standards are hardcoded. Will adapt when it breaks.
