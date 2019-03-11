@@ -127,10 +127,11 @@ function applesDate(date) {
 function dateEqual(date1, date2) {
 	a1 = applesDate(date1);
 	a2 = applesDate(date2);
-	return ((a1[0]===a2[0])&&(a1[0]===a2[0])&&(Math.abs(a1[1]-a2[1])<3)&&(Math.abs(a1[2]-a2[2])<3));
+
+	return ((a1[0]===a2[0])&&(a1[0]===a2[0])&&(Math.abs(a1[1]-a2[1])<5)&&(Math.abs(a1[2]-a2[2])<5));
 }
 
-var season = "OUTDOOR";
+var season = "INDOOR";
 var meetName = "";
 
 
@@ -146,6 +147,7 @@ async function compileRecentPerfs(date, gender, name, url) {
 			// console.log('statusCode:', response && response.statusCode);
 			$ = cheerio.load(body);
 			meetDate = $('#meet-results').find('table').first().find('thead > tr > th > span').text().trim();
+	
 			if(meetDate.length > 0 && dateEqual(meetDate, recentDateString)) {
 				 locMeetName = $('#meet-results').find('table').first().find('thead > tr > th > a').text().trim();
 				 if(meetName.indexOf(locMeetName) < 0) {
@@ -438,4 +440,9 @@ if(process.argv.length < 3) {
 
 else {
 	console.log("Usage:\nnode prs.js pr\nnode prs.js recent 'Jan 19-20, 2018'\nnode prs.js recent '01/19 - Jan 20, 2018'");
+}
+
+module.exports={
+	generatePRsToFile: generatePRsToFile,
+	generateRecentPerfsToFile: generateRecentPerfsToFile,
 }

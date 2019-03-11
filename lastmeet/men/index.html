@@ -37,7 +37,7 @@
       <table id="example" class="display table" width="100%"></table>
   </div>
 
-     
+
     <script src="../../recentDataObj.js"></script>
     <script src="../../js/jquery-3.3.1.min.js"></script>
     <script src="../../js/jquery-3.3.1.min.js"></script>
@@ -46,7 +46,9 @@
     <script src="../../js/datatables.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-      $('#navDest').load("../../nav.html");
+        $('#navDest').load("../../nav.html", function() {
+          $('.lastGenerated').html('Last updated: '+dateComputed)
+        });
       $('li.active').removeClass('active');
       $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
       $('#meet_title').text(menObj.meetName);
@@ -71,6 +73,6 @@
       });
     });
     </script>
-    
+
   </body>
 </html>
