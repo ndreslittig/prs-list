@@ -20,17 +20,17 @@ var indudettes = { '60m' : '7.56', '200m' : '24.37', '400m' : '55.05', '800m' : 
 				   'High Jump' : '1.69m',  'Pole Vault' : '3.91m',  'Long Jump' : '5.80m',  'Triple Jump' : '12.13m',
 				   'Shot Put' : '13.62m',  'Weight Throw' : '17.34m'};
 
-var dudes = { '100m' : '10.72', '200m' : '21.41', '400m' : '47.62', '800m' : '1:50.55',
-				   '1500m' : '3:48.46', '5000m' : '14:22.46', '10000m' : '30:25.91', '110 Hurdles' : '14.52',  '400 Hurdles' : '53.39',
-				   '3k Steeple' : '9:13.92',
-				   'High Jump' : '2.01m',  'Pole Vault' : '4.78m',  'Long Jump' : '6.99m',  'Triple Jump' : '14.25m',
-				   'Shot Put' : '16.20m' };
+var dudes = { '100m' : '10.69', '200m' : '21.35', '400m' : '47.45', '800m' : '1:50.40',
+				   '1500m' : '3:48.54', '5000m' : '14:22.10', '10000m' : '30:20.51', '110 Hurdles' : '14.65',  '400 Hurdles' : '53.22',
+				   '3k Steeple' : '9:12.37',
+				   'High Jump' : '2.02m',  'Pole Vault' : '4.77m',  'Long Jump' : '7.08m',  'Triple Jump' : '14.39m',
+				   'Shot Put' : '16.11m', 'Javelin':'56.40m' };
 
-var dudettes = { '100m' : '11.87', '200m' : '24:15', '400m' : '54.64', '800m' : '2:08.90',
-				   '1500m' : '4:26.76', '5000m' : '16:47.09', '10000m' : '35:44.05', '100 Hurdles' : '13.92',  '400 Hurdles' : '1:01.12',
-				   '3k Steeple' : '10:51.21',
-				   'High Jump' : '1.70m',  'Pole Vault' : '3.82m',  'Long Jump' : '5.84m',  'Triple Jump' : '12.20m',
-				   'Shot Put' : '14.00m' };
+var dudettes = { '100m' : '11.82', '200m' : '23.95', '400m' : '54.25', '800m' : '2:08.95',
+				   '1500m' : '4:25.93', '5000m' : '16:46.20', '10000m' : '35:38.21', '100 Hurdles' : '13.78',  '400 Hurdles' : '1:01.10',
+				   '3k Steeple' : '10:48.77',
+				   'High Jump' : '1.69m',  'Pole Vault' : '3.88m',  'Long Jump' : '5.84m',  'Triple Jump' : '12.26m',
+				   'Shot Put' : '14.18m' };
 var standards = { male : dudes, female : dudettes }
 var instandards = { male : indudes, female : indudettes }
 
@@ -98,6 +98,7 @@ var equivalencies = {
 	"PV" : "Pole Vault",
 	"SP" : "Shot Put",
 	"WT" : "Weight Throw",
+	"JV" : "Javelin",
 	"DMR" : "DMR",
 	'4x400' : '4x400',
 	'4x800' : '4x800',
@@ -129,7 +130,7 @@ function dateEqual(date1, date2) {
 	return ((a1[0]===a2[0])&&(a1[0]===a2[0])&&(Math.abs(a1[1]-a2[1])<3)&&(Math.abs(a1[2]-a2[2])<3));
 }
 
-var season = "INDOOR";
+var season = "OUTDOOR";
 var meetName = "";
 
 
@@ -166,7 +167,7 @@ async function compileRecentPerfs(date, gender, name, url) {
 						thisRow[2] = mark;
 						//TODO adapt to include outdoor and also women
 						thisRow[5] = gender === "male" ? prs.menObj[name][season][eventName] : prs.womenObj[name][season][eventName];
-						thisRow[3] = instandards[gender][eventName];
+						thisRow[3] = standards[gender][eventName];
 						if(mark.indexOf("m") > -1) {
 							// distance or throw, strip 'm' and parse to int
 							thisRow[4] = Math.max(0, (parseFloat(mark.replace("m", ""))/parseFloat(thisRow[3].replace("m",""))*100).toFixed(2))+"%";
