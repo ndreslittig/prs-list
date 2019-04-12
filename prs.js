@@ -45,7 +45,7 @@ var indoorPRs = {}
 var outdoorPRs = {}
 var parent = {}
 
-var learningExperiences = ["DNF", "ND", "FOUL", "NH", "NT", "DQ"]
+var learningExperiences = ["DNF", "ND", "FOUL", "NH", "NT", "DQ", "FS"]
 
 // not used because fuck it, use string comparisons. used for % calcs now
 function timeToMillis(string) {
